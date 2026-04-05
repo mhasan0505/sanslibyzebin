@@ -11,7 +11,6 @@ export const NAVIGATION_ITEMS = [
 export const SHOP_LINKS = [
   { label: "New Arrivals", href: "/new-arrivals" },
   { label: "Salwar Kameez", href: "/salwar-kameez" },
-  ,
   { label: "Lehengas", href: "/lehengas" },
   { label: "Modest Wear", href: "/modest-wear" },
 ] as const;
