@@ -78,7 +78,7 @@ export default function ProductDetailPage() {
             <p className="text-accent tracking-widest text-sm font-bold mb-2 uppercase">
               {product.category}
             </p>
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold text-[#153532] mb-4">
               {product.name}
             </h1>
             <p className="text-3xl text-gray-900 font-bold mb-6">
@@ -165,7 +165,7 @@ export default function ProductDetailPage() {
             <div className="flex gap-4 mb-8">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-primary hover:bg-primary/90 text-white py-4 px-6 font-bold tracking-wider transition-colors flex items-center justify-center gap-2"
+                className="flex-1 bg-accent hover:bg-[#6f5637] text-white py-4 px-6 font-bold tracking-wider transition-colors shadow-sm flex items-center justify-center gap-2"
               >
                 <ShoppingBag className="w-5 h-5" /> ADD TO CART
               </button>

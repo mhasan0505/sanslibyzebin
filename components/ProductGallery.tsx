@@ -30,7 +30,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
               src={images[selectedImageIndex]}
               alt="Product Image"
               fill
-              className="object-contain"
+              className="object-contain   object-center"
               priority
             />
           </div>
