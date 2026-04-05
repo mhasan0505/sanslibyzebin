@@ -12,7 +12,7 @@ export const PRODUCT_IMAGES = {
 export const CURRENCY = {
   SYMBOL: "৳",
   CODE: "BDT",
-  LOCALE: "bn-BD",
+  LOCALE: "en-BD",
 } as const;
 
 export const MESSAGES = {

@@ -4,7 +4,7 @@ import { Product } from "@/types/product";
  * Format a number as currency (Bangladeshi Taka)
  */
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat("bn-BD", {
+  return new Intl.NumberFormat("en-BD", {
     style: "currency",
     currency: "BDT",
     maximumFractionDigits: 0,
