@@ -1,7 +1,8 @@
 export const NAVIGATION_ITEMS = [
   { label: "New Arrivals", href: "/new-arrivals" },
   { label: "Salwar Kameez", href: "/salwar-kameez" },
-  { label: "Sarees", href: "/sarees" },
+  { label: "Co-Ords", href: "/co-ords" },
+
   { label: "Kurtis", href: "/kurtis" },
   { label: "Gowns", href: "/gowns" },
   { label: "About", href: "/about" },
@@ -10,7 +11,7 @@ export const NAVIGATION_ITEMS = [
 export const SHOP_LINKS = [
   { label: "New Arrivals", href: "/new-arrivals" },
   { label: "Salwar Kameez", href: "/salwar-kameez" },
-  { label: "Sarees", href: "/sarees" },
+  ,
   { label: "Lehengas", href: "/lehengas" },
   { label: "Modest Wear", href: "/modest-wear" },
 ] as const;

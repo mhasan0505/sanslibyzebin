@@ -9,7 +9,7 @@ export default function HeroSection() {
   return (
     <section className="relative w-full bg-white pt-24 overflow-hidden">
       {/* Minimalist gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-white pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-b from-gray-50 via-white to-white pointer-events-none" />
 
       <div className="container mx-auto px-6 h-full relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-24 lg:py-32">

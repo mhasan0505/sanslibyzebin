@@ -34,12 +34,12 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="group">
       <Link href={`/products/${product.id}`} className="block">
         {/* Product Image */}
-        <div className="relative overflow-hidden bg-gray-100 aspect-square mb-6">
+        <div className="relative overflow-hidden bg-gray-100 aspect-3/4 mb-6 rounded-lg">
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
           />
 
           {/* Overlay Actions */}

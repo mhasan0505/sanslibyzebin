@@ -1,0 +1,251 @@
+[
+  {
+    "id": 1,
+    "name": "Beautiful 2 piece co-ord set - Apricot ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Apricot",
+    "image": [
+      "/images/co-ords/apricote/apricot%20(1).jpeg",
+      "/images/co-ords/apricote/apricot%20(2).jpeg",
+      "/images/co-ords/apricote/apricot%20(3).jpeg",
+      "/images/co-ords/apricote/apricot%20(4).jpeg",
+      "/images/co-ords/apricote/apricot%20(5).jpeg",
+      "/images/co-ords/apricote/apricot%20(6).jpeg",
+      "/images/co-ords/apricote/apricot%20(7).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 2,
+    "name": "Beautiful 2 piece co-ord set - Black ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Black",
+    "image": [
+      "/images/co-ords/black/black%20(1).jpeg",
+      "/images/co-ords/black/black%20(2).jpeg",
+      "/images/co-ords/black/black%20(3).jpeg",
+      "/images/co-ords/black/black%20(4).jpeg",
+      "/images/co-ords/black/black%20(5).jpeg",
+      "/images/co-ords/black/black%20(6).jpeg",
+      "/images/co-ords/black/black%20(7).jpeg",
+      "/images/co-ords/black/black%20(8).jpeg",
+      "/images/co-ords/black/black%20(9).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 3,
+    "name": "Beautiful 2 piece co-ord set - Blue ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Blue",
+    "image": [
+      "/images/co-ords/blue/blue%20(1).jpeg",
+      "/images/co-ords/blue/blue%20(2).jpeg",
+      "/images/co-ords/blue/blue%20(3).jpeg",
+      "/images/co-ords/blue/blue%20(4).jpeg",
+      "/images/co-ords/blue/blue%20(5).jpeg",
+      "/images/co-ords/blue/blue%20(6).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 4,
+    "name": "Beautiful 2 piece co-ord set - Brown ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Brown",
+    "image": [
+      "/images/co-ords/bown/brown%20(1).jpeg",
+      "/images/co-ords/bown/brown%20(2).jpeg",
+      "/images/co-ords/bown/brown%20(3).jpeg",
+      "/images/co-ords/bown/brown%20(4).jpeg",
+      "/images/co-ords/bown/brown%20(5).jpeg",
+      "/images/co-ords/bown/brown%20(6).jpeg",
+      "/images/co-ords/bown/brown%20(7).jpeg",
+      "/images/co-ords/bown/brown%20(8).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 5,
+    "name": "Beautiful 2 piece co-ord set - Dark Mauve ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Dark Mauve",
+    "image": [
+      "/images/co-ords/dark_mauve/dak-mauve%20(1).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(2).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(3).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(4).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(5).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(6).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(7).jpeg",
+      "/images/co-ords/dark_mauve/dak-mauve%20(8).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 6,
+    "name": "Beautiful 2 piece co-ord set - Maroon ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Maroon",
+    "image": [
+      "/images/co-ords/meroon/meroon%20(1).jpeg",
+      "/images/co-ords/meroon/meroon%20(2).jpeg",
+      "/images/co-ords/meroon/meroon%20(3).jpeg",
+      "/images/co-ords/meroon/meroon%20(4).jpeg",
+      "/images/co-ords/meroon/meroon%20(5).jpeg",
+      "/images/co-ords/meroon/meroon%20(6).jpeg",
+      "/images/co-ords/meroon/meroon%20(7).jpeg",
+      "/images/co-ords/meroon/meroon%20(8).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 7,
+    "name": "Beautiful 2 piece co-ord set - Ocean Blue ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Ocean Blue",
+    "image": [
+      "/images/co-ords/ocean-blue/ocean-blue%20(1).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(2).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(3).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(4).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(5).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(6).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(7).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(8).jpeg",
+      "/images/co-ords/ocean-blue/ocean-blue%20(9).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 8,
+    "name": "Beautiful 2 piece co-ord set - Orange ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Orange",
+    "image": [
+      "/images/co-ords/orange/oange%20(1).jpeg",
+      "/images/co-ords/orange/oange%20(2).jpeg",
+      "/images/co-ords/orange/oange%20(3).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 9,
+    "name": "Beautiful 2 piece co-ord set - Pale Brown ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Pale Brown",
+    "image": [
+      "/images/co-ords/pale_brown/pale-brown%20(1).jpeg",
+      "/images/co-ords/pale_brown/pale-brown%20(2).jpeg",
+      "/images/co-ords/pale_brown/pale-brown%20(3).jpeg",
+      "/images/co-ords/pale_brown/pale-brown%20(4).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 10,
+    "name": "Beautiful 2 piece co-ord set - Purple ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Purple",
+    "image": [
+      "/images/co-ords/puple/puple%20(1).jpeg",
+      "/images/co-ords/puple/puple%20(2).jpeg",
+      "/images/co-ords/puple/puple%20(3).jpeg",
+      "/images/co-ords/puple/puple%20(4).jpeg",
+      "/images/co-ords/puple/puple%20(5).jpeg",
+      "/images/co-ords/puple/puple%20(6).jpeg",
+      "/images/co-ords/puple/puple%20(7).jpeg",
+      "/images/co-ords/puple/puple%20(8).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 11,
+    "name": "Beautiful 2 piece co-ord set - Rosewood ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Rosewood",
+    "image": [
+      "/images/co-ords/rosewood/rosewood%20(1).jpeg",
+      "/images/co-ords/rosewood/rosewood%20(2).jpeg",
+      "/images/co-ords/rosewood/rosewood%20(3).jpeg",
+      "/images/co-ords/rosewood/rosewood%20(4).jpeg",
+      "/images/co-ords/rosewood/rosewood%20(5).jpeg",
+      "/images/co-ords/rosewood/rosewood%20(6).jpeg",
+      "/images/co-ords/rosewood/rosewood%20(7).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 12,
+    "name": "Beautiful 2 piece co-ord set - Teal ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Teal",
+    "image": [
+      "/images/co-ords/teal/teal%20(1).jpeg",
+      "/images/co-ords/teal/teal%20(2).jpeg",
+      "/images/co-ords/teal/teal%20(3).jpeg",
+      "/images/co-ords/teal/teal%20(4).jpeg",
+      "/images/co-ords/teal/teal%20(5).jpeg",
+      "/images/co-ords/teal/teal%20(6).jpeg",
+      "/images/co-ords/teal/teal%20(7).jpeg",
+      "/images/co-ords/teal/teal%20(8).jpeg",
+      "/images/co-ords/teal/teal%20(9).jpeg"
+    ],
+    "quantity": 10
+  },
+  {
+    "id": 13,
+    "name": "Beautiful 2 piece co-ord set - Yellow ✨",
+    "fabric": "Pop corn cotton ✨",
+    "description": "Beautiful Aplic & embroidery ✨\n\nAvailable size-36 to 50✨",
+    "price": 3500,
+    "size": "36 to 50",
+    "color": "Yellow",
+    "image": [
+      "/images/co-ords/yellow/yellow%20(1).jpeg",
+      "/images/co-ords/yellow/yellow%20(2).jpeg",
+      "/images/co-ords/yellow/yellow%20(3).jpeg",
+      "/images/co-ords/yellow/yellow%20(4).jpeg",
+      "/images/co-ords/yellow/yellow%20(5).jpeg",
+      "/images/co-ords/yellow/yellow%20(6).jpeg",
+      "/images/co-ords/yellow/yellow%20(7).jpeg"
+    ],
+    "quantity": 10
+  }
+]

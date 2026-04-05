@@ -17,7 +17,7 @@ export function formatCurrency(amount: number): string {
  * @throws {Error} if price is invalid
  */
 export function parsePriceStrict(priceString: string): number {
-  const parsed = parseInt(priceString.replace(/[₹,\s]/g, ""), 10);
+  const parsed = parseInt(priceString.replace(/[₹৳,\s]/g, ""), 10);
   if (isNaN(parsed) || parsed < 0) {
     throw new Error(`Invalid price format: ${priceString}`);
   }
@@ -29,7 +29,7 @@ export function parsePriceStrict(priceString: string): number {
  * Example: "₹ 45,000" -> 45000
  */
 export function parsePrice(priceString: string): number {
-  return parseInt(priceString.replace(/[₹,\s]/g, ""), 10);
+  return parseInt(priceString.replace(/[₹৳,\s]/g, ""), 10);
 }
 
 /**
@@ -43,7 +43,7 @@ export function parsePriceSafe(
 ): number {
   try {
     return parsePriceStrict(priceString);
-  } catch (error) {
+  } catch {
     console.warn(
       `Failed to parse price: ${priceString}, using fallback: ${fallback}`,
     );

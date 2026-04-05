@@ -3,6 +3,7 @@
 import { SHOP_LINKS, SOCIAL_LINKS, SUPPORT_LINKS } from "@/app/data/constants";
 import { isValidEmail } from "@/utils/helpers";
 import { Facebook, Instagram, Mail, Twitter } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -25,16 +26,21 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white py-20">
+    <footer className="bg-primary-foreground text-white py-20">
       <div className="container mx-auto px-6">
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-16 mb-20">
           {/* Brand Section */}
           <div className="md:col-span-1">
             <Link href="/" className="inline-block mb-8">
-              <h2 className="text-2xl font-light tracking-widest">SANSLI</h2>
+              <Image
+                src="/Logo.webp"
+                alt="Sansli By Zebin Logo"
+                width={200}
+                height={200}
+              />
             </Link>
-            <p className="text-gray-400 text-sm font-light leading-relaxed mb-8">
+            <p className="text-primary-foreground text-sm font-light leading-relaxed mb-8">
               Elegance woven into every thread. Discover the finest collection
               of traditional Bangladeshi heritage wear.
             </p>
