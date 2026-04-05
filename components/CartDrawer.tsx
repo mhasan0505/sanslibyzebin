@@ -173,9 +173,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     {formatCurrency(cartTotal)}
                   </span>
                 </div>
-                <button className="w-full bg-gray-900 text-white py-3 text-sm font-semibold tracking-wide hover:bg-gray-800 transition-all duration-300">
+                <Link
+                  href="/checkout"
+                  onClick={onClose}
+                  className="block w-full bg-gray-900 text-white py-3 text-sm font-semibold tracking-wide hover:bg-gray-800 transition-all duration-300 text-center"
+                >
                   Proceed to Checkout
-                </button>
+                </Link>
                 <button
                   onClick={onClose}
                   className="w-full border border-gray-300 text-gray-900 py-3 text-sm font-light hover:bg-gray-50 transition-all duration-300"

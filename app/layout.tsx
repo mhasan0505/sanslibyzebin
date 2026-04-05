@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     "Discover exquisite Bangladeshi fashion that blends heritage with modern aesthetics. Shop exclusive sarees, lehengas, and fusion wear.",
   keywords:
     "Bangladeshi fashion, sarees, lehengas, fusion wear, luxury clothing, designer wear, ethnic fashion, traditional wear",
+  icons: {
+    icon: [{ url: "/Logo.webp", type: "image/webp" }],
+    shortcut: ["/Logo.webp"],
+    apple: ["/Logo.webp"],
+  },
   openGraph: {
     title: "Sansli By Zebin - Luxury Bangladeshi Fashion",
     description:
