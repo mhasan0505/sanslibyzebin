@@ -134,7 +134,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-32 pb-14">
+    <div className="min-h-screen bg-background pt-72 pb-14">
       <div className="container mx-auto px-6">
         <Link
           href="/collections"
