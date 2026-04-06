@@ -23,6 +23,7 @@ export const products: Product[] = (rawProducts as RawProduct[]).map(
     id: item.id,
     name: item.name,
     price: formattedPrice(item.price),
+    priceValue: item.price,
     category: "Co-Ords",
     description: item.description,
     images: item.image,

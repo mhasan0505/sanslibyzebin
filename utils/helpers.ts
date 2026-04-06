@@ -97,14 +97,16 @@ export function sortProducts(
   sortBy: "name" | "price-asc" | "price-desc" | "newest",
 ): Product[] {
   const sorted = [...products];
+  const getPriceValue = (product: Product) =>
+    product.priceValue ?? parsePrice(product.price);
 
   switch (sortBy) {
     case "name":
       return sorted.sort((a, b) => a.name.localeCompare(b.name));
     case "price-asc":
-      return sorted.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      return sorted.sort((a, b) => getPriceValue(a) - getPriceValue(b));
     case "price-desc":
-      return sorted.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+      return sorted.sort((a, b) => getPriceValue(b) - getPriceValue(a));
     case "newest":
       return sorted.sort((a, b) => b.id - a.id);
     default:

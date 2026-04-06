@@ -2,6 +2,7 @@ export interface Product {
   id: number;
   name: string;
   price: string;
+  priceValue: number;
   category: string;
   description: string;
   images: string[];
@@ -26,6 +27,9 @@ export interface WishlistItem {
 
 export interface FilterOptions {
   category?: string;
+  colors?: string[];
+  sizes?: string[];
+  materials?: string[];
   priceRange?: [number, number];
   inStock?: boolean;
   sortBy?: "name" | "price-asc" | "price-desc" | "newest";
