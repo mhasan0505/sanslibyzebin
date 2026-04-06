@@ -99,6 +99,10 @@ Recommended deployment flow:
 2. Run lint checks
 3. Deploy using your preferred CI/CD pipeline
 
+## Live Demo
+
+- Website: <https://www.sanslibyzebin.com/>
+
 ## Brand Note
 
 This repository is a custom storefront implementation for Sansli By Zebin. Content, imagery, and brand assets belong to their respective owners.
