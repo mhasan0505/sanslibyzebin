@@ -209,7 +209,7 @@ export default function Header() {
             </div>
 
             <nav className="hidden w-full items-center justify-center pb-4 lg:flex">
-              <div className="flex flex-wrap items-center justify-center gap-1 rounded-[2rem] border border-[#efd6ad]/50 bg-white/70 p-1.5 shadow-[0_8px_22px_rgba(212,184,146,0.16)] px-3">
+              <div className="flex flex-wrap items-center justify-center gap-1 rounded-4xl border border-[#efd6ad]/50 bg-white/70 p-1.5 shadow-[0_8px_22px_rgba(212,184,146,0.16)] px-3">
                 {NAVIGATION_ITEMS.map((item, index) => (
                   <motion.div
                     key={item.href}

@@ -33,10 +33,10 @@ export default async function CategoryPage(props: { params: Params }) {
   );
 
   return (
-    <div className="bg-secondary min-h-screen pt-24 pb-12">
+    <div className="bg-secondary min-h-screen pt-72 pb-12">
       <div className="container mx-auto px-6">
         <div className="mb-12 text-center">
-          <h1 className="font-heading text-4xl md:text-5xl text-primary mb-4 capitalize">
+          <h1 className="font-heading text-4xl md:text-5xl text-[#153532] mb-4 capitalize">
             {categoryName}
           </h1>
           <p className="text-gray-500 tracking-widest text-xs uppercase">
