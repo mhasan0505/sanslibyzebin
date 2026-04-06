@@ -35,12 +35,24 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link href={`/products/${product.id}`} className="block">
         {/* Product Image */}
         <div className="relative overflow-hidden bg-gray-100 aspect-3/4 mb-6 rounded-lg">
+          {/* Primary image — fades out on hover if a second image exists */}
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
-            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+            className={`object-contain p-2 transition-opacity duration-500 ease-in-out ${
+              product.images[1] ? "group-hover:opacity-0" : ""
+            }`}
           />
+          {/* Secondary image — fades in on hover */}
+          {product.images[1] && (
+            <Image
+              src={product.images[1]}
+              alt={`${product.name} – alternate view`}
+              fill
+              className="object-contain p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
+            />
+          )}
 
           {/* Overlay Actions */}
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-end justify-between p-4 opacity-0 group-hover:opacity-100">
