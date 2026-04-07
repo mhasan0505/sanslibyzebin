@@ -92,7 +92,7 @@ export default function HeroSection() {
           >
             <div className="relative h-[470px] sm:h-[560px] rounded-3xl overflow-hidden border border-[#e8d7be] bg-[#f7ecdf] shadow-[0_24px_80px_rgba(44,36,22,0.18)]">
               <Image
-                src="/images/co-ords/teal/teal%20(1).jpeg"
+                src="/images/co-ords/teal/teal%20(3).jpeg"
                 alt="Sansli co-ord outfit in teal"
                 fill
                 className="object-cover"
