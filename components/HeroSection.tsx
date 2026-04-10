@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden pt-26 md:pt-72 pb-14 md:pb-20 bg-background">
+    <section className="relative overflow-hidden pt-40 md:pt-72 pb-14 md:pb-20 bg-background">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(239,214,173,0.42),transparent_40%),radial-gradient(circle_at_82%_24%,rgba(139,111,71,0.18),transparent_36%),linear-gradient(180deg,#fffdf9_0%,#fef9f3_58%,#fbf2e8_100%)]" />
       <div className="pointer-events-none absolute -top-16 right-12 h-44 w-44 rounded-full border border-[#d5b98f]/30" />
       <div className="pointer-events-none absolute bottom-8 left-6 h-24 w-24 rounded-full bg-[#efd6ad]/35 blur-2xl" />

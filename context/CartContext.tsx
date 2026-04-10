@@ -8,7 +8,12 @@ import { createContext, ReactNode, useContext } from "react";
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, size?: string, color?: string) => void;
+  addToCart: (
+    product: Product,
+    size?: string,
+    color?: string,
+    quantity?: number,
+  ) => void;
   removeFromCart: (productId: number, size?: string, color?: string) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
@@ -21,7 +26,12 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useLocalStorage<CartItem[]>(STORAGE_KEYS.CART, []);
 
-  const addToCart = (product: Product, size?: string, color?: string) => {
+  const addToCart = (
+    product: Product,
+    size?: string,
+    color?: string,
+    quantity = 1,
+  ) => {
     setCart((prevCart) => {
       // Check if product already exists in cart with same size/color
       const existingItemIndex = prevCart.findIndex(
@@ -34,13 +44,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existingItemIndex > -1) {
         // Update quantity if item exists
         const updatedCart = [...prevCart];
-        updatedCart[existingItemIndex].quantity += 1;
+        updatedCart[existingItemIndex].quantity += quantity;
         return updatedCart;
       } else {
         // Add new item
         return [
           ...prevCart,
-          { product, quantity: 1, selectedSize: size, selectedColor: color },
+          {
+            product,
+            quantity,
+            selectedSize: size,
+            selectedColor: color,
+          },
         ];
       }
     });

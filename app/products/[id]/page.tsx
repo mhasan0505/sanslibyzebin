@@ -46,7 +46,12 @@ export default function ProductDetailPage() {
     .slice(0, 3);
 
   const handleAddToCart = () => {
-    addToCart(product, selectedSize || undefined, selectedColor || undefined);
+    addToCart(
+      product,
+      selectedSize || undefined,
+      selectedColor || undefined,
+      quantity,
+    );
   };
 
   const handleToggleWishlist = () => {

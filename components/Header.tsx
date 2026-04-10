@@ -4,6 +4,7 @@ import { NAVIGATION_ITEMS } from "@/app/data/constants";
 import CartDrawer from "@/components/CartDrawer";
 import SearchModal from "@/components/SearchModal";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 import {
   AnimatePresence,
   motion,
@@ -22,6 +23,7 @@ export default function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showPromo, setShowPromo] = useState(true);
   const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
 
   const { scrollY } = useScroll();
 
@@ -173,14 +175,33 @@ export default function Header() {
                   />
                 </motion.button>
 
-                <motion.button
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex rounded-full border border-transparent p-2 text-[#5b4428] transition-all duration-300 hover:border-[#efd6ad]/60 hover:bg-white/80 hover:text-[#2c2416] sm:p-2.5"
-                  aria-label="Wishlist"
+                  className="relative"
                 >
-                  <Heart className="w-4 h-4 sm:w-[1.1rem] sm:h-[1.1rem]" strokeWidth={1.5} />
-                </motion.button>
+                  <Link
+                    href="/wishlist"
+                    className="flex rounded-full border border-transparent p-2 text-[#5b4428] transition-all duration-300 hover:border-[#efd6ad]/60 hover:bg-white/80 hover:text-[#2c2416] sm:p-2.5"
+                    aria-label="Wishlist"
+                  >
+                    <Heart
+                      className="h-4 w-4 sm:h-[1.1rem] sm:w-[1.1rem]"
+                      strokeWidth={1.5}
+                    />
+                    {wishlistCount > 0 && (
+                      <motion.span
+                        key={wishlistCount}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute -top-0.5 -right-0.5 flex h-4.5 min-w-4.5 items-center justify-center rounded-full border border-[#8b6f47]/20 bg-linear-to-br from-[#efd6ad] to-[#d4b892] px-1 text-[0.6rem] font-semibold text-[#2c2416] shadow-lg"
+                      >
+                        <span className="sr-only">items in wishlist</span>
+                        {wishlistCount}
+                      </motion.span>
+                    )}
+                  </Link>
+                </motion.div>
 
                 <motion.button
                   whileHover={{ scale: 1.05 }}

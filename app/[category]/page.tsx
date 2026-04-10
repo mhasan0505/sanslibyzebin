@@ -1,10 +1,13 @@
 import { products } from "@/app/data/products";
 import ProductCard from "@/components/ProductCard";
+import { Metadata } from "next";
 
 // Define params type for Next.js 15
 type Params = Promise<{ category: string }>;
 
-export async function generateMetadata(props: { params: Params }) {
+export async function generateMetadata(props: {
+  params: Params;
+}): Promise<Metadata> {
   const params = await props.params;
   const category = decodeURIComponent(params.category).replace(/-/g, " ");
 
@@ -20,17 +23,20 @@ export default async function CategoryPage(props: { params: Params }) {
   const params = await props.params;
   const categorySlug = decodeURIComponent(params.category);
   const categoryName = categorySlug.replace(/-/g, " ");
+  const isNewArrivalsPage = categoryName.toLowerCase() === "new arrivals";
 
   // Simple filter logic - strictly matching category or "all"
   // In a real app, this would query a DB or filter more robustly
   // Since mock data might not match exactly, we'll try to find partial matches or show all for demo if needed.
   // Actually, let's filter by category property in products.
 
-  const categoryProducts = products.filter(
-    (p) =>
-      p.category.toLowerCase().includes(categoryName.toLowerCase()) ||
-      categoryName.toLowerCase() === "new arrivals" // Show all or sorted by date for new arrivals
-  );
+  const categoryProducts = products.filter((p) => {
+    if (isNewArrivalsPage) {
+      return p.newArrival;
+    }
+
+    return p.category.toLowerCase().includes(categoryName.toLowerCase());
+  });
 
   return (
     <div className="bg-secondary min-h-screen pt-72 pb-12">

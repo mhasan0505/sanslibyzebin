@@ -106,3 +106,23 @@ Recommended deployment flow:
 ## Brand Note
 
 This repository is a custom storefront implementation for Sansli By Zebin. Content, imagery, and brand assets belong to their respective owners.
+
+
+
+
+
+
+
+
+New arrivel ✨
+
+Price-3900
+
+Elegance & confidence ✨
+
+Beautiful 3 pc stiched set✨
+Fabric-soft silk ✨
+
+Beautiful 0 size lock stone work ✨
+
+Available size-36,38,40,40,42,44,46,48,50,52,54,56✨

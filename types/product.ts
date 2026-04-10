@@ -11,6 +11,7 @@ export interface Product {
   material?: string;
   inStock?: boolean;
   featured?: boolean;
+  newArrival?: boolean;
 }
 
 export interface CartItem {
