@@ -16,7 +16,7 @@ import { useMemo, useState } from "react";
 
 const SHIPPING_FEE = 120;
 const STORE_WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801700000000";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801773808773";
 const STORE_ORDER_EMAIL =
   process.env.NEXT_PUBLIC_ORDER_EMAIL || "orders@sanslibyzebin.com";
 
@@ -262,7 +262,7 @@ export default function CheckoutPage() {
                 Order Summary
               </h2>
 
-              <div className="space-y-4 max-h-[320px] overflow-y-auto pr-1">
+              <div className="space-y-4 max-h-80 overflow-y-auto pr-1">
                 {cart.map((item) => (
                   <div
                     key={`${item.product.id}-${item.selectedSize}-${item.selectedColor}`}
@@ -320,7 +320,6 @@ export default function CheckoutPage() {
               >
                 <Mail className="w-4 h-4" /> Order by Email
               </button>
-
             </div>
           </div>
         )}
