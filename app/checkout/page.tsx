@@ -28,6 +28,7 @@ type CheckoutFormData = {
   address: string;
   city: string;
   postalCode: string;
+  specialInstructions: string;
 };
 
 export default function CheckoutPage() {
@@ -42,6 +43,7 @@ export default function CheckoutPage() {
     address: "",
     city: "",
     postalCode: "",
+    specialInstructions: "",
   });
 
   const shipping = useMemo(
@@ -55,8 +57,18 @@ export default function CheckoutPage() {
   };
 
   const validateForm = () => {
-    const hasMissingField = Object.values(formData).some(
-      (value) => !value.trim(),
+    const requiredFields: Array<keyof CheckoutFormData> = [
+      "firstName",
+      "lastName",
+      "email",
+      "phone",
+      "address",
+      "city",
+      "postalCode",
+    ];
+
+    const hasMissingField = requiredFields.some(
+      (field) => !formData[field].trim(),
     );
 
     if (hasMissingField) {
@@ -95,6 +107,7 @@ export default function CheckoutPage() {
       `Address: ${formData.address}`,
       `City: ${formData.city}`,
       `Postal Code: ${formData.postalCode}`,
+      `Special Instructions: ${formData.specialInstructions || "None"}`,
       "",
       "Order Items",
       itemLines,
@@ -239,6 +252,14 @@ export default function CheckoutPage() {
                   value={formData.postalCode}
                   onChange={(e) => updateField("postalCode", e.target.value)}
                   required
+                />
+                <textarea
+                  className="md:col-span-2 border border-[#e6d3b8] rounded-md px-4 py-3 min-h-[120px]"
+                  placeholder="Special Instructions (optional): measurements, custom fitting notes, design preferences, delivery timing, etc."
+                  value={formData.specialInstructions}
+                  onChange={(e) =>
+                    updateField("specialInstructions", e.target.value)
+                  }
                 />
               </form>
 
