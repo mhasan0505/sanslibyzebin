@@ -1,8 +1,7 @@
 export const NAVIGATION_ITEMS = [
   { label: "New Arrivals", href: "/new-arrivals" },
-  { label: "Salwar Kameez", href: "/salwar-kameez" },
   { label: "Co-Ords", href: "/co-ords" },
-
+  { label: "3 Piece Sets", href: "/3-piece-sets" },
   { label: "Kurtis", href: "/kurtis" },
   { label: "Gowns", href: "/gowns" },
   { label: "About", href: "/about" },
@@ -10,7 +9,7 @@ export const NAVIGATION_ITEMS = [
 
 export const SHOP_LINKS = [
   { label: "New Arrivals", href: "/new-arrivals" },
-  { label: "Salwar Kameez", href: "/salwar-kameez" },
+  { label: "3 Piece Sets", href: "/3-piece-sets" },
   { label: "Lehengas", href: "/lehengas" },
   { label: "Modest Wear", href: "/modest-wear" },
 ] as const;
@@ -30,7 +29,7 @@ export const SOCIAL_LINKS = {
 
 export const CATEGORIES = [
   "All",
-  "Salwar Kameez",
+  "3 Piece Sets",
   "Sarees",
   "Kurtis",
   "Gowns",
@@ -47,7 +46,7 @@ export const SORT_OPTIONS = [
 export const SITE_METADATA = {
   title: "Sansli By Zebin | Premium Traditional Wear",
   description:
-    "Exclusive collection of Salwar Kameez, Sarees, and Fusion wear for the modern Bangladeshi woman.",
+    "Exclusive collection of 3 Piece Sets, Sarees, and Fusion wear for the modern Bangladeshi woman.",
   keywords:
-    "Salwar Kameez, Saree, Bangladeshi fashion, luxury clothing, ladies dress",
+    "3 Piece Sets, Saree, Bangladeshi fashion, luxury clothing, ladies dress",
 } as const;

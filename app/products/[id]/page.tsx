@@ -86,9 +86,20 @@ export default function ProductDetailPage() {
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-[#153532] mb-4">
               {product.name}
             </h1>
-            <p className="text-3xl text-gray-900 font-bold mb-6">
-              {product.price}
-            </p>
+            <div className="flex items-center gap-4 mb-6">
+              <p className="text-3xl text-gray-900 font-bold">
+                {product.price}
+              </p>
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase ${
+                  product.inStock
+                    ? "bg-[#e8f5e9] text-[#2e7d32]"
+                    : "bg-[#ffebee] text-[#c62828]"
+                }`}
+              >
+                {product.inStock ? "Available" : "Stock Out"}
+              </span>
+            </div>
 
             <p className="text-gray-600 leading-relaxed mb-8">
               {product.description}
@@ -170,9 +181,15 @@ export default function ProductDetailPage() {
             <div className="flex gap-4 mb-8">
               <button
                 onClick={handleAddToCart}
-                className="flex-1 bg-accent hover:bg-[#6f5637] text-white py-4 px-6 font-bold tracking-wider transition-colors shadow-sm flex items-center justify-center gap-2"
+                disabled={!product.inStock}
+                className={`flex-1 ${
+                  product.inStock
+                    ? "bg-accent hover:bg-[#6f5637] text-white"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                } py-4 px-6 font-bold tracking-wider transition-colors shadow-sm flex items-center justify-center gap-2`}
               >
-                <ShoppingBag className="w-5 h-5" /> ADD TO CART
+                <ShoppingBag className="w-5 h-5" />{" "}
+                {product.inStock ? "ADD TO CART" : "STOCK OUT"}
               </button>
               <button
                 onClick={handleToggleWishlist}
@@ -203,7 +220,7 @@ export default function ProductDetailPage() {
                 <li>• Custom fitting available</li>
                 <li>• Dry clean only</li>
                 <li>
-                  • {product.inStock ? "In Stock" : "Currently Unavailable"}
+                  • Status: {product.inStock ? "Available" : "Stock Out"}
                 </li>
               </ul>
             </div>

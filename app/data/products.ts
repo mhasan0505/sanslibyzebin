@@ -10,8 +10,9 @@ type RawProduct = {
   size: string;
   color: string;
   image: string[];
-  quantity: number;
+  inStock: boolean;
   newArrival?: boolean;
+  category?: string;
 };
 
 const formattedPrice = (amount: number): string =>
@@ -37,13 +38,18 @@ export const products: Product[] = (rawProducts as RawProduct[]).map(
     name: item.name,
     price: formattedPrice(item.price),
     priceValue: item.price,
-    category: "Co-Ords",
+    category:
+      item.category === "3 piece set"
+        ? "3 Piece Sets"
+        : item.category === "co-ords"
+        ? "Co-Ords"
+        : item.category || "Co-Ords",
     description: item.description,
     images: item.image,
     sizes: defaultSizes,
     colors: [item.color],
     material: item.fabric,
-    inStock: item.quantity > 0,
+    inStock: item.inStock,
     featured: item.id <= 4,
     newArrival: item.newArrival ?? false,
   }),

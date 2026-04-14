@@ -16,8 +16,9 @@
       "/images/co-ords/apricote/apricot%20(6).jpeg",
       "/images/co-ords/apricote/apricot%20(7).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": false
   },
   {
     "id": 2,
@@ -36,8 +37,9 @@
       "/images/co-ords/black/black%20(6).jpeg",
       "/images/co-ords/black/black%20(7).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 3,
@@ -55,8 +57,9 @@
       "/images/co-ords/blue/blue%20(5).jpeg",
       "/images/co-ords/blue/blue%20(6).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 4,
@@ -76,8 +79,9 @@
       "/images/co-ords/dark_mauve/dak-mauve%20(7).jpeg",
       "/images/co-ords/dark_mauve/dak-mauve%20(8).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 5,
@@ -98,8 +102,9 @@
       "/images/co-ords/dark_orchesta/dark_orchestra%20(8).jpeg",
       "/images/co-ords/dark_orchesta/dark_orchestra%20(9).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 6,
@@ -119,8 +124,9 @@
       "/images/co-ords/meroon/meroon%20(7).jpeg",
       "/images/co-ords/meroon/meroon%20(8).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 7,
@@ -142,8 +148,9 @@
       "/images/co-ords/misty_bown/misty_brown%20(9).jpeg",
       "/images/co-ords/misty_bown/misty_brown%20(10).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 8,
@@ -164,7 +171,9 @@
       "/images/co-ords/ocean-blue/ocean-blue%20(8).jpeg",
       "/images/co-ords/ocean-blue/ocean-blue%20(9).jpeg"
     ],
-    "quantity": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 9,
@@ -179,8 +188,9 @@
       "/images/co-ords/orange/oange%20(2).jpeg",
       "/images/co-ords/orange/oange%20(3).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 10,
@@ -196,7 +206,9 @@
       "/images/co-ords/pale_brown/pale-brown%20(3).jpeg",
       "/images/co-ords/pale_brown/pale-brown%20(4).jpeg"
     ],
-    "quantity": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 11,
@@ -216,8 +228,9 @@
       "/images/co-ords/parrot_pink/parrot_pink%20(7).jpeg",
       "/images/co-ords/parrot_pink/parrot_pink%20(8).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 12,
@@ -237,8 +250,9 @@
       "/images/co-ords/puple/puple%20(7).jpeg",
       "/images/co-ords/puple/puple%20(8).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 13,
@@ -258,8 +272,9 @@
       "/images/co-ords/reddish_brown/reddish_brown%20(7).jpeg",
       "/images/co-ords/reddish_brown/reddish_brown%20(8).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 14,
@@ -278,8 +293,9 @@
       "/images/co-ords/rosewood/rosewood%20(6).jpeg",
       "/images/co-ords/rosewood/rosewood%20(7).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 15,
@@ -298,8 +314,9 @@
       "/images/co-ords/stone_blue/stoe_blue%20(6).jpeg",
       "/images/co-ords/stone_blue/stoe_blue%20(7).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 16,
@@ -319,8 +336,7 @@
       "/images/co-ords/teal/teal%20(8).jpeg",
       "/images/co-ords/teal/teal%20(9).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "inStock": true
   },
   {
     "id": 17,
@@ -339,12 +355,13 @@
       "/images/co-ords/yellow/yellow%20(6).jpeg",
       "/images/co-ords/yellow/yellow%20(7).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10
+    "category": "co-ords",
+    "newArrival": false,
+    "inStock": true
   },
   {
     "id": 18,
-    "name": "Beautiful 2 Piece Co-Ord Set - Hop Pink ✨",
+    "name": "Beautiful 3 Piece Set - Hop Pink ✨",
     "fabric": "Soft Silk ✨",
     "description": "Beautiful Appliqué & Embroidery ✨\n\nAvailable size-36 to 56✨",
     "price": 3900,
@@ -356,13 +373,13 @@
       "/images/co-ords/hop_pink/hop_pink%20(3).jpeg",
       "/images/co-ords/hop_pink/hop_pink%20(4).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10,
-    "newArrival": true
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
   },
   {
     "id": 19,
-    "name": "Beautiful 2 Piece Co-Ord Set - Pure Black ✨",
+    "name": "Beautiful 3 Piece Set - Pure Black ✨",
     "fabric": "Soft Silk ✨",
     "description": "Beautiful Appliqué & Embroidery ✨\n\nAvailable size-36 to 56✨",
     "price": 3900,
@@ -377,13 +394,13 @@
       "/images/co-ords/pure_black/pure_black%20(6).jpeg",
       "/images/co-ords/pure_black/pure_black%20(7).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10,
-    "newArrival": true
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
   },
   {
     "id": 20,
-    "name": "Beautiful 2 Piece Co-Ord Set - Green ✨",
+    "name": "Beautiful 3 Piece Set - Green ✨",
     "fabric": "Soft Silk ✨",
     "description": "Beautiful Appliqué & Embroidery ✨\n\nAvailable size-36 to 56✨",
     "price": 3900,
@@ -395,8 +412,8 @@
       "/images/co-ords/green/green%20(3).jpeg",
       "/images/co-ords/green/green%20(4).jpeg"
     ],
-    "quantity": 10,
-    "stock": 10,
-    "newArrival": true
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
   }
 ]

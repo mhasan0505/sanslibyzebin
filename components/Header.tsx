@@ -73,7 +73,7 @@ export default function Header() {
               : "bg-[#fffaf4]/88 backdrop-blur-md"
           }`}
         >
-          <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-3 items-center py-3 sm:py-4 relative">
               {/* Left Section */}
               <div className="flex items-center justify-self-start gap-2">
