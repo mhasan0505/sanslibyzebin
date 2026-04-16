@@ -22,8 +22,8 @@ export const SUPPORT_LINKS = [
 ] as const;
 
 export const SOCIAL_LINKS = {
-  instagram: "#",
-  facebook: "#",
+  instagram: "https://www.instagram.com/sanslibyzebins4",
+  facebook: "https://www.facebook.com/sanslibyzebin",
   twitter: "#",
 } as const;
 
