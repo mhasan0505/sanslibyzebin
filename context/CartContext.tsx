@@ -2,6 +2,7 @@
 
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { STORAGE_KEYS } from "@/lib/constants";
+import { trackAddToCart } from "@/lib/metaPixel";
 import { CartItem, Product } from "@/types/product";
 import { parsePriceSafe } from "@/utils/helpers";
 import { createContext, ReactNode, useContext } from "react";
@@ -32,6 +33,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     color?: string,
     quantity = 1,
   ) => {
+    trackAddToCart({
+      product,
+      quantity,
+      selectedSize: size,
+      selectedColor: color,
+    });
+
     setCart((prevCart) => {
       // Check if product already exists in cart with same size/color
       const existingItemIndex = prevCart.findIndex(

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { trackInitiateCheckout, trackPurchase } from "@/lib/metaPixel";
 import { formatCurrency, parsePriceSafe } from "@/utils/helpers";
 import {
   ArrowLeft,
@@ -12,7 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const SHIPPING_FEE = 120;
 const STORE_WHATSAPP_NUMBER =
@@ -33,6 +34,7 @@ type CheckoutFormData = {
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
+  const hasTrackedInitiateCheckout = useRef(false);
   const [placedVia, setPlacedVia] = useState<"whatsapp" | "email" | null>(null);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState<CheckoutFormData>({
@@ -51,6 +53,18 @@ export default function CheckoutPage() {
     [cartTotal],
   );
   const grandTotal = cartTotal + shipping;
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      hasTrackedInitiateCheckout.current = false;
+      return;
+    }
+
+    if (hasTrackedInitiateCheckout.current) return;
+
+    trackInitiateCheckout(cart);
+    hasTrackedInitiateCheckout.current = true;
+  }, [cart]);
 
   const updateField = (field: keyof CheckoutFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -124,6 +138,12 @@ export default function CheckoutPage() {
   const handleOrderOnWhatsApp = () => {
     if (!validateForm()) return;
 
+    trackPurchase({
+      items: cart,
+      orderValue: grandTotal,
+      method: "whatsapp",
+    });
+
     const cleanNumber = STORE_WHATSAPP_NUMBER.replace(/\D/g, "");
     const message = encodeURIComponent(buildOrderMessage());
     const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
@@ -135,6 +155,12 @@ export default function CheckoutPage() {
 
   const handleOrderByEmail = () => {
     if (!validateForm()) return;
+
+    trackPurchase({
+      items: cart,
+      orderValue: grandTotal,
+      method: "email",
+    });
 
     const subject = encodeURIComponent(
       `New Order - ${formData.firstName} ${formData.lastName}`,

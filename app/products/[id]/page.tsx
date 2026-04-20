@@ -5,10 +5,11 @@ import ProductCard from "@/components/ProductCard";
 import ProductGallery from "@/components/ProductGallery";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { trackViewContent } from "@/lib/metaPixel";
 import { ArrowLeft, Heart, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -21,6 +22,11 @@ export default function ProductDetailPage() {
 
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
+  useEffect(() => {
+    if (!product) return;
+    trackViewContent(product);
+  }, [product]);
 
   if (!product) {
     return (
@@ -219,9 +225,7 @@ export default function ProductDetailPage() {
                 <li>• Intricate hand embroidery</li>
                 <li>• Custom fitting available</li>
                 <li>• Dry clean only</li>
-                <li>
-                  • Status: {product.inStock ? "Available" : "Stock Out"}
-                </li>
+                <li>• Status: {product.inStock ? "Available" : "Stock Out"}</li>
               </ul>
             </div>
           </div>

@@ -99,6 +99,46 @@ Recommended deployment flow:
 2. Run lint checks
 3. Deploy using your preferred CI/CD pipeline
 
+## Meta Pixel Tracking Setup
+
+Essential setup is already wired in the app for these events:
+
+- PageView
+- ViewContent
+- AddToCart
+- InitiateCheckout
+- Purchase
+
+### 1. Configure environment values
+
+Create a local env file from `.env.example` and set your production values:
+
+- `NEXT_PUBLIC_META_PIXEL_ID`
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`
+- `NEXT_PUBLIC_ORDER_EMAIL`
+
+### 2. Verify browser-side tracking
+
+1. Install Meta Pixel Helper in Chrome
+2. Open your site and navigate across multiple pages
+3. Confirm events fire in this flow:
+   - Product page load -> ViewContent
+   - Add to cart -> AddToCart
+   - Open checkout -> InitiateCheckout
+   - Submit order (WhatsApp or Email) -> Purchase
+
+### 3. Verify in Meta Events Manager
+
+1. Open Test Events for your pixel
+2. Trigger the full funnel on your site
+3. Confirm event parameters include content IDs, value, and currency
+
+### 4. Production checklist
+
+- Pixel ID is set correctly in deployment environment variables
+- Domain is verified in Meta Business settings
+- Event Match Quality and deduplication strategy are reviewed if server-side Conversions API is added later
+
 ## Live Demo
 
 - Website: <https://www.sanslibyzebin.com/>
@@ -106,13 +146,6 @@ Recommended deployment flow:
 ## Brand Note
 
 This repository is a custom storefront implementation for Sansli By Zebin. Content, imagery, and brand assets belong to their respective owners.
-
-
-
-
-
-
-
 
 New arrivel ✨
 
