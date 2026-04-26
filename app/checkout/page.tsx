@@ -18,7 +18,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const SHIPPING_FEE = 120;
 const STORE_WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801773808773";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801732945479";
 const STORE_ORDER_EMAIL =
   process.env.NEXT_PUBLIC_ORDER_EMAIL || "orders@sanslibyzebin.com";
 
