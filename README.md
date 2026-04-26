@@ -62,6 +62,43 @@ pnpm dev
 
 Open <http://localhost:3000> in your browser.
 
+## Postgres Setup (Prisma + Neon)
+
+Postgres is configured via Prisma with a reusable client in `lib/prisma.ts` and a test route at `/api/health/db`.
+
+### 1. Configure environment variables
+
+Copy `.env.example` to `.env.local` and set these values:
+
+- `DATABASE_URL`
+- `DIRECT_URL`
+
+Example values are already included in `.env.example`.
+
+### 2. Start the app
+
+```bash
+pnpm dev
+```
+
+### 3. Verify database connection
+
+Open:
+
+- <http://localhost:3000/api/health/db>
+
+Expected success response:
+
+```json
+{
+  "ok": true,
+  "provider": "postgresql",
+  "message": "Postgres (Neon) connection is healthy"
+}
+```
+
+If your credentials or network are incorrect, the route returns `ok: false` with HTTP 500.
+
 ## Available Scripts
 
 ```bash
