@@ -16,6 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.sanslibyzebin.com",
+  ),
   title: "Sansli By Zebin - Luxury Bangladeshi Fashion",
   description:
     "Discover exquisite Bangladeshi fashion that blends heritage with modern aesthetics. Shop exclusive sarees, lehengas, and fusion wear.",
@@ -34,9 +37,8 @@ export const metadata: Metadata = {
   },
 };
 
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import MetaPixelPageTracker from "@/components/MetaPixelPageTracker";
+import SiteChrome from "@/components/SiteChrome";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 
@@ -78,9 +80,7 @@ fbq('track', 'PageView');`}
         <CartProvider>
           <WishlistProvider>
             <MetaPixelPageTracker />
-            <Header />
-            <main>{children}</main>
-            <Footer />
+            <SiteChrome>{children}</SiteChrome>
           </WishlistProvider>
         </CartProvider>
       </body>

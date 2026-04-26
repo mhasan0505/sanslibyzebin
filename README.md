@@ -86,6 +86,8 @@ This keeps listing pages, search, filters, and product details in sync.
 - /co-ords - Main shop experience with advanced filters
 - /collections - Collection browsing
 - /products/[id] - Product details
+- /lp/[slug] - Product-specific Meta ads landing pages
+- /lp/[slug]/[variant] - Campaign-specific landing page variants for ad sets
 - /checkout - Checkout flow UI
 - /about - Brand story page
 

@@ -1,5 +1,22 @@
+export type ProductLandingVariantKey =
+  | "eid-launch"
+  | "remarketing"
+  | "new-arrival";
+
+export interface ProductLandingVariantCopy {
+  badge?: string;
+  headline?: string;
+  subheadline?: string;
+  offerText?: string;
+  primaryCta?: string;
+  benefits?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
+}
+
 export interface Product {
   id: number;
+  slug: string;
   name: string;
   price: string;
   priceValue: number;
@@ -12,6 +29,19 @@ export interface Product {
   inStock?: boolean;
   featured?: boolean;
   newArrival?: boolean;
+  landingPage?: {
+    badge?: string;
+    headline?: string;
+    subheadline?: string;
+    offerText?: string;
+    primaryCta?: string;
+    benefits?: string[];
+    metaTitle?: string;
+    metaDescription?: string;
+    variantOverrides?: Partial<
+      Record<ProductLandingVariantKey, ProductLandingVariantCopy>
+    >;
+  };
 }
 
 export interface CartItem {
