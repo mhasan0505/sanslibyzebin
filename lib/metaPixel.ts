@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-type CheckoutMethod = "whatsapp" | "email";
+type CheckoutMethod = "whatsapp" | "email" | "landing";
 
 type MetaPixelEvent =
   | "PageView"
@@ -35,9 +35,10 @@ function getAttributionContext(): Record<string, unknown> {
 
   const context: Record<string, unknown> = {};
   const pathSegments = window.location.pathname.split("/").filter(Boolean);
+  const searchParams = new URLSearchParams(window.location.search);
 
   if (pathSegments[0] === "lp") {
-    if (pathSegments[1]) {
+    if (pathSegments[1] && pathSegments[1] !== "checkout") {
       context.lp_slug = pathSegments[1];
     }
     if (pathSegments[2]) {
@@ -45,7 +46,17 @@ function getAttributionContext(): Record<string, unknown> {
     }
   }
 
-  const searchParams = new URLSearchParams(window.location.search);
+  const checkoutSlug = searchParams.get("lp_slug");
+  const checkoutVariant = searchParams.get("lp_variant");
+
+  if (checkoutSlug) {
+    context.lp_slug = checkoutSlug;
+  }
+
+  if (checkoutVariant) {
+    context.lp_variant = checkoutVariant;
+  }
+
   ATTRIBUTION_QUERY_KEYS.forEach((key) => {
     const value = searchParams.get(key);
     if (value) {

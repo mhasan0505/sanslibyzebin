@@ -62,6 +62,7 @@ export default async function ProductLandingPage({
     <ProductDetailPageContent
       product={withResolvedLandingContent(product)}
       mode="landing"
+      campaignVariant={undefined}
     />
   );
 }

@@ -33,6 +33,9 @@ const ORDER_STATUS_OPTIONS: OrderStatus[] = [
   "Cancelled",
 ];
 
+const getOrderSourceLabel = (orderId: string): string =>
+  orderId.startsWith("lp-order-") ? "Landing Page" : "Website";
+
 export default function AdminPage() {
   const products = getAllProducts();
   const [orders, setOrders] = useState<Order[]>([]);
@@ -447,6 +450,9 @@ export default function AdminPage() {
                             </p>
                             <p className="text-xs text-[#8b6f47]">
                               {totalUnits} items
+                            </p>
+                            <p className="mt-1 inline-flex rounded-full bg-[#f4ead9] px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-[#7a5d3d]">
+                              {getOrderSourceLabel(order.id)}
                             </p>
                           </td>
                           <td className="py-3 pr-3">

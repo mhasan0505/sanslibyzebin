@@ -72,6 +72,7 @@ export default async function ProductLandingVariantPage({
       product={withResolvedLandingContent(product, variant)}
       mode="landing"
       campaignLabel={variantConfig.label}
+      campaignVariant={variant}
     />
   );
 }

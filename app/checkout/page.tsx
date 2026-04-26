@@ -2,6 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { trackInitiateCheckout, trackPurchase } from "@/lib/metaPixel";
+import { Order } from "@/types/order";
 import { formatCurrency, parsePriceSafe } from "@/utils/helpers";
 import {
   ArrowLeft,
@@ -68,6 +69,49 @@ export default function CheckoutPage() {
 
   const updateField = (field: keyof CheckoutFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const persistOrder = async (): Promise<boolean> => {
+    const payload: Order = {
+      id: `order-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+      customerPhone: formData.phone.trim(),
+      district: formData.city.trim(),
+      createdAt: new Date().toISOString(),
+      status: "Pending",
+      paymentStatus: "Pending",
+      paymentMethod: "Cash on Delivery",
+      shippingFee: shipping,
+      items: cart.map((item) => ({
+        productId: item.product.id,
+        quantity: item.quantity,
+        unitPrice: parsePriceSafe(item.product.price, 0),
+      })),
+    };
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = (await response.json()) as {
+        ok?: boolean;
+        message?: string;
+      };
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.message || "Could not save order");
+      }
+
+      return true;
+    } catch {
+      setError(
+        "We could not save your order right now. Please try again in a moment.",
+      );
+      return false;
+    }
   };
 
   const validateForm = () => {
@@ -138,38 +182,48 @@ export default function CheckoutPage() {
   const handleOrderOnWhatsApp = () => {
     if (!validateForm()) return;
 
-    trackPurchase({
-      items: cart,
-      orderValue: grandTotal,
-      method: "whatsapp",
-    });
+    void (async () => {
+      const saved = await persistOrder();
+      if (!saved) return;
 
-    const cleanNumber = STORE_WHATSAPP_NUMBER.replace(/\D/g, "");
-    const message = encodeURIComponent(buildOrderMessage());
-    const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
+      trackPurchase({
+        items: cart,
+        orderValue: grandTotal,
+        method: "whatsapp",
+      });
 
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    setPlacedVia("whatsapp");
-    clearCart();
+      const cleanNumber = STORE_WHATSAPP_NUMBER.replace(/\D/g, "");
+      const message = encodeURIComponent(buildOrderMessage());
+      const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      setPlacedVia("whatsapp");
+      clearCart();
+    })();
   };
 
   const handleOrderByEmail = () => {
     if (!validateForm()) return;
 
-    trackPurchase({
-      items: cart,
-      orderValue: grandTotal,
-      method: "email",
-    });
+    void (async () => {
+      const saved = await persistOrder();
+      if (!saved) return;
 
-    const subject = encodeURIComponent(
-      `New Order - ${formData.firstName} ${formData.lastName}`,
-    );
-    const body = encodeURIComponent(buildOrderMessage());
-    window.location.href = `mailto:${STORE_ORDER_EMAIL}?subject=${subject}&body=${body}`;
+      trackPurchase({
+        items: cart,
+        orderValue: grandTotal,
+        method: "email",
+      });
 
-    setPlacedVia("email");
-    clearCart();
+      const subject = encodeURIComponent(
+        `New Order - ${formData.firstName} ${formData.lastName}`,
+      );
+      const body = encodeURIComponent(buildOrderMessage());
+      window.location.href = `mailto:${STORE_ORDER_EMAIL}?subject=${subject}&body=${body}`;
+
+      setPlacedVia("email");
+      clearCart();
+    })();
   };
 
   return (

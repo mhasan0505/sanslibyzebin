@@ -8,6 +8,7 @@ import { trackViewContent } from "@/lib/metaPixel";
 import { Product } from "@/types/product";
 import { ArrowLeft, Heart, ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface ProductDetailPageContentProps {
@@ -15,6 +16,7 @@ interface ProductDetailPageContentProps {
   relatedProducts?: Product[];
   mode?: "default" | "landing";
   campaignLabel?: string;
+  campaignVariant?: string;
 }
 
 const defaultLandingBenefits = [
@@ -28,11 +30,13 @@ export default function ProductDetailPageContent({
   relatedProducts = [],
   mode = "default",
   campaignLabel,
+  campaignVariant,
 }: ProductDetailPageContentProps) {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [isOversizeSelected, setIsOversizeSelected] = useState(false);
+  const router = useRouter();
 
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -68,6 +72,18 @@ export default function ProductDetailPageContent({
       selectedColor || undefined,
       quantity,
     );
+
+    if (mode === "landing") {
+      const query = new URLSearchParams({
+        lp_slug: product.slug,
+      });
+
+      if (campaignVariant) {
+        query.set("lp_variant", campaignVariant);
+      }
+
+      router.push(`/lp/checkout?${query.toString()}`);
+    }
   };
 
   const handleToggleWishlist = () => {
