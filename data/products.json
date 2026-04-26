@@ -417,5 +417,94 @@
     "category": "3 piece set",
     "newArrival": true,
     "inStock": true
+  },
+  {
+    "id": 21,
+    "name": "Beautiful 3 Piece Stitched Set - Skin Color ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨ Indian Maslin Dupatta\n\nDollar Work ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 48 inch\nPant length- 38 inch\nNeck 6.5 inch\nSleeve length- 21 inch",
+    "price": 3500,
+    "overSizePrice": 3800,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Skin Color",
+    "image": [
+      "/images/co-ords/skin_color/skin_color%20(1).jpeg",
+      "/images/co-ords/skin_color/skin_color%20(2).jpeg",
+      "/images/co-ords/skin_color/skin_color%20(3).jpeg",
+      "/images/co-ords/skin_color/skin_color%20(4).jpeg"
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
+  },
+  {
+    "id": 22,
+    "name": "Beautiful 3 Piece Stitched Set - Eerie Black ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨ Indian Maslin Dupatta\n\nDollar Work ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 48 inch\nPant length- 38 inch\nNeck 6.5 inch\nSleeve length- 21 inch",
+    "price": 3500,
+    "overSizePrice": 3800,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Eerie Black",
+    "image": [
+      "/images/co-ords/eerie_black/eerie_black%20(1).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(2).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(3).jpeg",
+
+      "/images/co-ords/eerie_black/eerie_black%20(4).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(5).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(6).jpeg"
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
+  },
+  {
+    "id": 23,
+    "name": "Beautiful 3 Piece Stitched Set - Red ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨ Indian Maslin Dupatta\n\nDollar Work ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 48 inch\nPant length- 38 inch\nNeck 6.5 inch\nSleeve length- 21 inch",
+    "price": 3500,
+    "overSizePrice": 3800,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Red",
+    "image": [
+      "/images/co-ords/red_03/red_03%20(1).jpg",
+      "/images/co-ords/red_03/red_03%20(2).jpg"
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
+  },
+  {
+    "id": 24,
+    "name": "Beautiful 3 Piece Stitched Set - Red ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨ Indian Maslin Dupatta\n\nDollar Work ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 48 inch\nPant length- 38 inch\nNeck 6.5 inch\nSleeve length- 21 inch",
+    "price": 3500,
+    "overSizePrice": 3800,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Royal Blue",
+    "image": [
+      "/images/co-ords/red_01/red_01%20(1).jpeg",
+      "/images/co-ords/red_01/red_01%20(2).jpeg",
+      "/images/co-ords/red_01/red_01%20(3).jpeg",
+      "/images/co-ords/red_01/red_01%20(4).jpeg",
+      "/images/co-ords/red_01/red_01%20(5).jpeg",
+      "/images/co-ords/red_01/red_01%20(6).jpeg",
+      "/images/co-ords/red_01/red_01%20(7).jpeg"
+
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
   }
 ]

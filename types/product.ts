@@ -20,8 +20,12 @@ export interface Product {
   name: string;
   price: string;
   priceValue: number;
+  overSize?: boolean;
+  overSizePrice?: string;
+  overSizePriceValue?: number;
   category: string;
   description: string;
+  sizeDescription?: string;
   images: string[];
   sizes?: string[];
   colors?: string[];

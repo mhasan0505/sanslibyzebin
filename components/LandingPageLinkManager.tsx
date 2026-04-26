@@ -2,6 +2,7 @@
 
 import { Product } from "@/types/product";
 import { Copy, ExternalLink } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -40,16 +41,27 @@ export default function LandingPageLinkManager({
           className="rounded-[1.75rem] border border-[#eadcca] bg-white/90 p-6 shadow-sm"
         >
           <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#8b6b43]">
-                {product.category}
-              </p>
-              <h2 className="mt-2 text-2xl font-heading font-bold text-[#153532]">
-                {product.name}
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-[#556260]">
-                {product.landingPage?.offerText || product.description}
-              </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
+              <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-xl border border-[#eee5d9] bg-[#f8f3eb]">
+                <Image
+                  src={product.images[0]}
+                  alt={`${product.name} preview`}
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                />
+              </div>
+              <div className="max-w-2xl">
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#8b6b43]">
+                  {product.category}
+                </p>
+                <h2 className="mt-2 text-2xl font-heading font-bold text-[#153532]">
+                  {product.name}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-[#556260]">
+                  {product.landingPage?.offerText || product.description}
+                </p>
+              </div>
             </div>
             <Link
               href={`/products/${product.id}`}

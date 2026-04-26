@@ -32,6 +32,7 @@ export default function ProductDetailPageContent({
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [isOversizeSelected, setIsOversizeSelected] = useState(false);
 
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -40,10 +41,25 @@ export default function ProductDetailPageContent({
     trackViewContent(product);
   }, [product]);
 
+  const oversizeSizes = ["48", "50", "52", "54", "56"];
+
+  const handleSizeSelect = (size: string) => {
+    setSelectedSize(size);
+    if (product.overSize && oversizeSizes.includes(size)) {
+      setIsOversizeSelected(true);
+    } else {
+      setIsOversizeSelected(false);
+    }
+  };
+
   const inWishlist = isInWishlist(product.id);
   const landingBenefits = product.landingPage?.benefits?.length
     ? product.landingPage.benefits
     : defaultLandingBenefits;
+
+  const currentPrice = isOversizeSelected
+    ? product.overSizePrice
+    : product.price;
 
   const handleAddToCart = () => {
     addToCart(
@@ -145,9 +161,16 @@ export default function ProductDetailPageContent({
               {product.name}
             </h2>
             <div className="flex items-center gap-4 mb-6">
-              <p className="text-3xl text-gray-900 font-bold">
-                {product.price}
-              </p>
+              <div className="flex flex-col gap-2">
+                <p className="text-3xl text-gray-900 font-bold">
+                  {currentPrice || product.price}
+                </p>
+                {isOversizeSelected && product.overSizePrice && (
+                  <p className="text-sm text-accent font-semibold">
+                    Oversize Premium
+                  </p>
+                )}
+              </div>
               <span
                 className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase ${
                   product.inStock
@@ -162,6 +185,24 @@ export default function ProductDetailPageContent({
             <p className="text-gray-600 leading-relaxed mb-8">
               {product.description}
             </p>
+
+            {product.sizeDescription && (
+              <div className="mb-8 rounded-2xl border border-[#e8ddcf] bg-[#fbf6ef] p-5">
+                <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#6d5332]">
+                  Size Description
+                </h3>
+                <ul className="space-y-2 text-sm text-[#44514f]">
+                  {product.sizeDescription.split("\n").map((line) => {
+                    const text = line.trim();
+                    if (!text) {
+                      return null;
+                    }
+
+                    return <li key={text}>• {text}</li>;
+                  })}
+                </ul>
+              </div>
+            )}
 
             {mode === "landing" && campaignLabel && (
               <div className="mb-8 rounded-2xl border border-[#ece2d5] bg-white px-5 py-4 text-sm text-[#44514f]">
@@ -192,19 +233,28 @@ export default function ProductDetailPageContent({
                   Select Size
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`px-4 py-2 border transition-all duration-300 ${
-                        selectedSize === size
-                          ? "border-primary bg-primary text-white"
-                          : "border-gray-300 text-gray-700 hover:border-accent"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+                  {product.sizes.map((size) => {
+                    const isOversize =
+                      product.overSize && oversizeSizes.includes(size);
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => handleSizeSelect(size)}
+                        className={`px-4 py-2 border transition-all duration-300 relative ${
+                          selectedSize === size
+                            ? "border-primary bg-primary text-white"
+                            : "border-gray-300 text-gray-700 hover:border-accent"
+                        }`}
+                      >
+                        {size}
+                        {isOversize && (
+                          <span className="ml-1 inline-block text-xs bg-accent text-white rounded-full px-2 py-0.5">
+                            +
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}

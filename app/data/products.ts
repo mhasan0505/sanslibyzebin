@@ -7,7 +7,10 @@ type RawProduct = {
   name: string;
   fabric: string;
   description: string;
+  sizeDescription?: string;
   price: number;
+  overSize?: boolean;
+  overSizePrice?: number;
   size: string;
   color: string;
   image: string[];
@@ -96,6 +99,11 @@ export const products: Product[] = (rawProducts as RawProduct[]).map(
     name: item.name,
     price: formattedPrice(item.price),
     priceValue: item.price,
+    overSize: item.overSize ?? false,
+    overSizePrice: item.overSizePrice
+      ? formattedPrice(item.overSizePrice)
+      : undefined,
+    overSizePriceValue: item.overSizePrice,
     category:
       item.category === "3 piece set"
         ? "3 Piece Sets"
@@ -103,6 +111,7 @@ export const products: Product[] = (rawProducts as RawProduct[]).map(
           ? "Co-Ords"
           : item.category || "Co-Ords",
     description: item.description,
+    sizeDescription: item.sizeDescription,
     images: item.image,
     sizes: defaultSizes,
     colors: [item.color],
