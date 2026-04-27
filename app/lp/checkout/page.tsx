@@ -370,7 +370,7 @@ function LandingCheckoutContent() {
               </p>
             </div>
           </div>
-        )}
+        )} 
       </div>
     </div>
   );

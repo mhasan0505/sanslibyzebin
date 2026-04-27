@@ -506,5 +506,28 @@
     "category": "3 piece set",
     "newArrival": true,
     "inStock": true
+  },
+  {
+    "id": 25,
+    "name": "Beautiful 1 Piece Stitched Set - Black ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨\n\nHeavy Karchupi Work ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Dress length- 50 inch\nSleeve length- 21 inch",
+    "price": 3200,
+    "overSizePrice": 3800,
+    "size": "36 to 56",
+    "overSize": false,
+    "color": "Black",
+    "image": [
+      "/images/co-ords/black_04/black_04%20(1).jpeg",
+      "/images/co-ords/black_04/black_04%20(2).jpeg",
+      "/images/co-ords/black_04/black_04%20(3).jpeg",
+      "/images/co-ords/black_04/black_04%20(4).jpeg",
+      "/images/co-ords/black_04/black_04%20(5).jpeg"
+
+    ],
+    "category": "1 piece set",
+    "newArrival": true,
+    "inStock": true
   }
 ]
