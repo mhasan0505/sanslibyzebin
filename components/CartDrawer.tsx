@@ -126,6 +126,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 updateQuantity(
                                   item.product.id,
                                   item.quantity - 1,
+                                  item.selectedSize,
+                                  item.selectedColor,
                                 )
                               }
                               className="p-1.5 hover:bg-gray-100 transition-colors"
@@ -141,6 +143,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                 updateQuantity(
                                   item.product.id,
                                   item.quantity + 1,
+                                  item.selectedSize,
+                                  item.selectedColor,
                                 )
                               }
                               className="p-1.5 hover:bg-gray-100 transition-colors"
@@ -152,7 +156,13 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                           {/* Remove Button */}
                           <button
-                            onClick={() => removeFromCart(item.product.id)}
+                            onClick={() =>
+                              removeFromCart(
+                                item.product.id,
+                                item.selectedSize,
+                                item.selectedColor,
+                              )
+                            }
                             className="text-gray-400 hover:text-red-500 transition-colors p-1.5"
                             aria-label="Remove item"
                           >
