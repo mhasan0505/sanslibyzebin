@@ -94,6 +94,14 @@ export default function ProductDetailPageContent({
     }
   };
 
+  const handleWhatsAppOrder = () => {
+    const message = `Hi, I would like to order:\n\n*${product.name}*\nPrice: ${currentPrice || product.price}\n${
+      selectedSize ? `Size: ${selectedSize}\n` : ""
+    }${selectedColor ? `Color: ${selectedColor}\n` : ""}Quantity: ${quantity}\n\nProduct Link: ${window.location.href}`;
+    const whatsappUrl = `https://wa.me/8801732935479?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-background pt-32 pb-12">
       <div className="container mx-auto px-6">
@@ -321,26 +329,29 @@ export default function ProductDetailPageContent({
               </div>
             </div>
 
-            <div className="flex gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <button
-                onClick={handleAddToCart}
-                disabled={!product.inStock}
-                className={`flex-1 ${
-                  product.inStock
-                    ? "bg-accent hover:bg-[#6f5637] text-white"
-                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                } py-4 px-6 font-bold tracking-wider transition-colors shadow-sm flex items-center justify-center gap-2`}
+                onClick={handleWhatsAppOrder}
+                className="flex-1 bg-[#25D366] hover:bg-[#128C7E] text-white py-4 px-6 font-bold tracking-wider transition-colors shadow-sm flex items-center justify-center gap-2"
               >
-                <ShoppingBag className="w-5 h-5" />
-                {product.inStock
-                  ? mode === "landing"
-                    ? product.landingPage?.primaryCta || "ORDER THIS LOOK"
-                    : "ADD TO CART"
-                  : "STOCK OUT"}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M3 21l1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                </svg>
+                ORDER VIA WHATSAPP
               </button>
               <button
                 onClick={handleToggleWishlist}
-                className={`border p-4 transition-all duration-300 ${
+                className={`border p-4 shrink-0 transition-all duration-300 ${
                   inWishlist
                     ? "border-accent bg-accent text-white"
                     : "border-gray-300 text-gray-600 hover:border-accent hover:text-accent"

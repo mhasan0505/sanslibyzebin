@@ -25,6 +25,7 @@ export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/sanslibyzebins4",
   facebook: "https://www.facebook.com/sanslibyzebin",
   twitter: "#",
+  whatsapp: "https://wa.me/8801732935479",
 } as const;
 
 export const CATEGORIES = [
