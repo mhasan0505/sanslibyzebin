@@ -1,7 +1,12 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { trackInitiateCheckout, trackPurchase } from "@/lib/metaPixel";
+import {
+  delayForPixel,
+  trackContact,
+  trackInitiateCheckout,
+  trackPurchaseWithServerFallback,
+} from "@/lib/metaPixel";
 import { Order } from "@/types/order";
 import { formatCurrency, parsePriceSafe } from "@/utils/helpers";
 import {
@@ -186,11 +191,24 @@ export default function CheckoutPage() {
       const saved = await persistOrder();
       if (!saved) return;
 
-      trackPurchase({
+      // Track purchase with both client-side and server-side events
+      await trackPurchaseWithServerFallback({
         items: cart,
         orderValue: grandTotal,
         method: "whatsapp",
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
       });
+
+      // Track contact event for WhatsApp messaging
+      await trackContact({
+        phone: formData.phone,
+        email: formData.email,
+        checkoutMethod: "whatsapp",
+      });
+
+      // Wait for pixel to complete before redirecting
+      await delayForPixel(1200);
 
       const cleanNumber = STORE_WHATSAPP_NUMBER.replace(/\D/g, "");
       const message = encodeURIComponent(buildOrderMessage());
@@ -209,11 +227,24 @@ export default function CheckoutPage() {
       const saved = await persistOrder();
       if (!saved) return;
 
-      trackPurchase({
+      // Track purchase with both client-side and server-side events
+      await trackPurchaseWithServerFallback({
         items: cart,
         orderValue: grandTotal,
         method: "email",
+        customerEmail: formData.email,
+        customerPhone: formData.phone,
       });
+
+      // Track contact event for email ordering
+      await trackContact({
+        phone: formData.phone,
+        email: formData.email,
+        checkoutMethod: "email",
+      });
+
+      // Wait for pixel to complete before redirecting
+      await delayForPixel(1200);
 
       const subject = encodeURIComponent(
         `New Order - ${formData.firstName} ${formData.lastName}`,

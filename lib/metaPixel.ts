@@ -173,3 +173,118 @@ export function trackPurchase(params: {
     checkout_method: method,
   });
 }
+
+/**
+ * Server-side tracking for events (for better reliability, especially with redirects)
+ * This complements client-side tracking with server-side Meta Conversions API
+ */
+async function trackEventServerSide(
+  eventName: "Purchase" | "Contact" | "InitiateCheckout",
+  params: {
+    email?: string;
+    phone?: string;
+    value?: number;
+    contentName?: string;
+    contentType?: string;
+    numItems?: number;
+    checkoutMethod?: string;
+  },
+): Promise<boolean> {
+  try {
+    const eventId = `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+    const response = await fetch("/api/pixel-events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        eventName,
+        eventId,
+        pageUrl:
+          typeof window !== "undefined" ? window.location.href : undefined,
+        email: params.email,
+        phone: params.phone,
+        currency: CURRENCY.CODE,
+        value: params.value,
+        contentName: params.contentName,
+        contentType: params.contentType,
+        numItems: params.numItems,
+        checkoutMethod: params.checkoutMethod,
+      }),
+    });
+
+    return response.ok;
+  } catch (error) {
+    console.error("Server-side pixel tracking failed:", error);
+    return false;
+  }
+}
+
+/**
+ * Track purchase with both client-side and server-side events
+ * Critical for WhatsApp orders where page redirects occur
+ */
+export async function trackPurchaseWithServerFallback(params: {
+  items: CartItem[];
+  orderValue: number;
+  method: CheckoutMethod;
+  customerEmail?: string;
+  customerPhone?: string;
+}): Promise<void> {
+  const { items, orderValue, method, customerEmail, customerPhone } = params;
+
+  if (items.length === 0) return;
+
+  // Track client-side first
+  trackPurchase({
+    items,
+    orderValue,
+    method,
+  });
+
+  // Also track server-side for reliability
+  await trackEventServerSide("Purchase", {
+    email: customerEmail,
+    phone: customerPhone,
+    value: orderValue,
+    contentType: "product",
+    numItems: items.reduce((count, item) => count + item.quantity, 0),
+    checkoutMethod: method,
+  });
+}
+
+/**
+ * Track customer contact/messaging events for WhatsApp
+ * This tracks when customers initiate contact via WhatsApp
+ */
+export async function trackContact(params: {
+  phone?: string;
+  email?: string;
+  checkoutMethod: "whatsapp" | "email";
+}): Promise<void> {
+  const { phone, email, checkoutMethod } = params;
+
+  // Track client-side Contact event (if available)
+  if (canTrackMetaPixel()) {
+    window.fbq?.("track", "Contact", {
+      ...withAttribution(),
+      phone,
+      email,
+      checkout_method: checkoutMethod,
+    });
+  }
+
+  // Track server-side
+  await trackEventServerSide("Contact", {
+    phone,
+    email,
+    checkoutMethod,
+  });
+}
+
+/**
+ * Delay function to ensure pixel fires before redirect
+ * Use before redirecting to external URLs
+ */
+export function delayForPixel(milliseconds: number = 1000): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
