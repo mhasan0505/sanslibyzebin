@@ -501,7 +501,6 @@
       "/images/co-ords/red_01/red_01%20(5).jpeg",
       "/images/co-ords/red_01/red_01%20(6).jpeg",
       "/images/co-ords/red_01/red_01%20(7).jpeg"
-
     ],
     "category": "3 piece set",
     "newArrival": true,
@@ -524,9 +523,79 @@
       "/images/co-ords/black_04/black_04%20(3).jpeg",
       "/images/co-ords/black_04/black_04%20(4).jpeg",
       "/images/co-ords/black_04/black_04%20(5).jpeg"
-
     ],
     "category": "1 piece set",
+    "newArrival": true,
+    "inStock": true
+  },
+  {
+    "id": 26,
+    "name": "Beautiful 3 Piece Stitched Set - Black ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨\n\nKarchupi Work ✨\nIndian Maslin Dupatta ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 35 inch\nGharara length- 40 inch",
+    "price": 6700,
+    "overSizePrice": 7000,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Black",
+    "image": [
+      "/images/co-ords/black_05/black_05%20(1).jpg",
+      "/images/co-ords/black_05/black_05%20(2).jpg",
+      "/images/co-ords/black_05/black_05%20(3).jpg",
+      "/images/co-ords/black_05/black_05%20(4).jpg",
+      "/images/co-ords/black_05/black_05%20(5).jpg",
+      "/images/co-ords/black_05/black_05%20(6).jpg"
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
+  },
+  {
+    "id": 27,
+    "name": "Beautiful 3 Piece Stitched Set - Teal ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery ✨\n\nKarchupi Work ✨\nIndian Maslin Dupatta ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 35 inch\nGharara length- 40 inch",
+    "price": 6700,
+    "overSizePrice": 7000,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Teal",
+    "image": [
+      "/images/co-ords/teal_02/teal_02%20(1).jpg",
+      "/images/co-ords/teal_02/teal_02%20(2).jpg",
+      "/images/co-ords/teal_02/teal_02%20(3).jpg",
+      "/images/co-ords/teal_02/teal_02%20(4).jpg",
+      "/images/co-ords/teal_02/teal_02%20(5).jpg",
+      "/images/co-ords/teal_02/teal_02%20(6).jpg",
+      "/images/co-ords/teal_02/teal_02%20(7).jpg"
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
+  },
+  {
+    "id": 28,
+    "name": "Beautiful 3 Piece Stitched Set - Skin Color ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery mirror work✨\n\nKarchupi Work ✨\nIndian Maslin Dupatta & Long Kamiz ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 50 inch\nPant length- 38 inch\nGharara length- 40 inch",
+    "price": 6700,
+    "overSizePrice": 7000,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Skin Color",
+    "image": [
+      "/images/co-ords/skin_color_02/skin_color_02%20(1).jpg",
+      "/images/co-ords/skin_color_02/skin_color_02%20(2).jpg",
+      "/images/co-ords/skin_color_02/skin_color_02%20(3).jpg",
+      "/images/co-ords/skin_color_02/skin_color_02%20(4).jpg",
+      "/images/co-ords/skin_color_02/skin_color_02%20(5).jpg",
+      "/images/co-ords/skin_color_02/skin_color_02%20(6).jpg",
+      "/images/co-ords/skin_color_02/skin_color_02%20(7).jpg"
+    ],
+    "category": "3 piece set",
     "newArrival": true,
     "inStock": true
   }

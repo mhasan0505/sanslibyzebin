@@ -53,7 +53,7 @@ export default function ProductGallery({ images }: ProductGalleryProps) {
               src={img}
               alt={`Thumbnail ${index + 1}`}
               fill
-              className="object-contain object-center"
+              className="object-cover object-center"
             />
           </button>
         ))}
