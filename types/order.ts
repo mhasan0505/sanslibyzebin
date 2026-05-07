@@ -13,6 +13,10 @@ export interface OrderItem {
   productId: number;
   quantity: number;
   unitPrice: number;
+  productName?: string;
+  productImage?: string;
+  selectedSize?: string;
+  selectedColor?: string;
 }
 
 export interface Order {
@@ -20,6 +24,8 @@ export interface Order {
   customerName: string;
   customerPhone: string;
   district: string;
+  shippingAddress?: string;
+  specialInstructionMessage?: string;
   createdAt: string;
   status: OrderStatus;
   paymentStatus: PaymentStatus;

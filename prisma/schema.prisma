@@ -9,28 +9,34 @@ datasource db {
 }
 
 model Order {
-  id            String      @id
-  customerName  String
-  customerPhone String
-  district      String
-  status        String
-  paymentStatus String
-  paymentMethod String
-  shippingFee   Int
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  items         OrderItem[]
+  id                        String      @id
+  customerName              String
+  customerPhone             String
+  district                  String
+  shippingAddress           String?
+  specialInstructionMessage String?
+  status                    String
+  paymentStatus             String
+  paymentMethod             String
+  shippingFee               Int
+  createdAt                 DateTime    @default(now())
+  updatedAt                 DateTime    @updatedAt
+  items                     OrderItem[]
 
   @@index([createdAt])
   @@index([status])
 }
 
 model OrderItem {
-  id        String @id @default(cuid())
-  orderId   String
-  productId Int
-  quantity  Int
-  unitPrice Int
+  id            String  @id @default(cuid())
+  orderId       String
+  productId     Int
+  quantity      Int
+  unitPrice     Int
+  productName   String?
+  productImage  String?
+  selectedSize  String?
+  selectedColor String?
 
   order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
 

@@ -153,8 +153,6 @@ Essential setup is already wired in the app for these events:
 Create a local env file from `.env.example` and set your production values:
 
 - `NEXT_PUBLIC_META_PIXEL_ID`
-- `NEXT_PUBLIC_WHATSAPP_NUMBER`
-- `NEXT_PUBLIC_ORDER_EMAIL`
 
 ### 2. Verify browser-side tracking
 
@@ -164,7 +162,7 @@ Create a local env file from `.env.example` and set your production values:
    - Product page load -> ViewContent
    - Add to cart -> AddToCart
    - Open checkout -> InitiateCheckout
-   - Submit order (WhatsApp or Email) -> Purchase
+  - Submit order from checkout -> Purchase
 
 ### 3. Verify in Meta Events Manager
 

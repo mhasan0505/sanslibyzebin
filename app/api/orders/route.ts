@@ -1,4 +1,3 @@
-import { orders as seedOrders } from "@/app/data/orders";
 import { prisma } from "@/lib/prisma";
 import { Order } from "@/types/order";
 import { NextResponse } from "next/server";
@@ -29,6 +28,8 @@ type DbOrder = {
   customerName: string;
   customerPhone: string;
   district: string;
+  shippingAddress?: string | null;
+  specialInstructionMessage?: string | null;
   createdAt: Date;
   status: string;
   paymentStatus: string;
@@ -38,6 +39,10 @@ type DbOrder = {
     productId: number;
     quantity: number;
     unitPrice: number;
+    productName?: string | null;
+    productImage?: string | null;
+    selectedSize?: string | null;
+    selectedColor?: string | null;
   }>;
 };
 
@@ -47,6 +52,8 @@ function toOrderDto(order: DbOrder): Order {
     customerName: order.customerName,
     customerPhone: order.customerPhone,
     district: order.district,
+    shippingAddress: order.shippingAddress ?? "",
+    specialInstructionMessage: order.specialInstructionMessage ?? "",
     createdAt: order.createdAt.toISOString(),
     status: order.status as Order["status"],
     paymentStatus: order.paymentStatus as Order["paymentStatus"],
@@ -56,47 +63,16 @@ function toOrderDto(order: DbOrder): Order {
       productId: item.productId,
       quantity: item.quantity,
       unitPrice: item.unitPrice,
+      productName: item.productName ?? undefined,
+      productImage: item.productImage ?? undefined,
+      selectedSize: item.selectedSize ?? undefined,
+      selectedColor: item.selectedColor ?? undefined,
     })),
   };
 }
 
-async function ensureSeedOrders() {
-  const count = await prisma.order.count();
-
-  if (count > 0) {
-    return;
-  }
-
-  await prisma.$transaction(
-    seedOrders.map((order) =>
-      prisma.order.create({
-        data: {
-          id: order.id,
-          customerName: order.customerName,
-          customerPhone: order.customerPhone,
-          district: order.district,
-          createdAt: new Date(order.createdAt),
-          status: order.status,
-          paymentStatus: order.paymentStatus,
-          paymentMethod: order.paymentMethod,
-          shippingFee: order.shippingFee,
-          items: {
-            create: order.items.map((item) => ({
-              productId: item.productId,
-              quantity: item.quantity,
-              unitPrice: item.unitPrice,
-            })),
-          },
-        },
-      }),
-    ),
-  );
-}
-
 export async function GET() {
   try {
-    await ensureSeedOrders();
-
     const orders = await prisma.order.findMany({
       include: { items: true },
       orderBy: { createdAt: "desc" },
@@ -129,6 +105,7 @@ export async function POST(request: Request) {
       !payload.customerName ||
       !payload.customerPhone ||
       !payload.district ||
+      !payload.shippingAddress ||
       !payload.status ||
       !payload.paymentStatus ||
       !payload.paymentMethod ||
@@ -179,6 +156,9 @@ export async function POST(request: Request) {
         customerName: payload.customerName,
         customerPhone: payload.customerPhone,
         district: payload.district,
+        shippingAddress: payload.shippingAddress,
+        specialInstructionMessage:
+          payload.specialInstructionMessage?.trim() || null,
         status: payload.status,
         paymentStatus: payload.paymentStatus,
         paymentMethod: payload.paymentMethod,
@@ -189,6 +169,10 @@ export async function POST(request: Request) {
             productId: item.productId,
             quantity: item.quantity,
             unitPrice: item.unitPrice,
+            productName: item.productName?.trim() || null,
+            productImage: item.productImage?.trim() || null,
+            selectedSize: item.selectedSize?.trim() || null,
+            selectedColor: item.selectedColor?.trim() || null,
           })),
         },
       },

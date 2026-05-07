@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * Server-side Meta Conversions API integration
  * Sends purchase and contact events to Meta for better tracking accuracy
- * Particularly important for WhatsApp orders where client-side tracking may fail
+ * Useful when client-side tracking can be interrupted by navigation changes
  */
 
 const META_PIXEL_ID =

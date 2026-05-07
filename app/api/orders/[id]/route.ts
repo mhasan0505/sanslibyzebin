@@ -28,6 +28,8 @@ type DbOrder = {
   customerName: string;
   customerPhone: string;
   district: string;
+  shippingAddress?: string | null;
+  specialInstructionMessage?: string | null;
   createdAt: Date;
   status: string;
   paymentStatus: string;
@@ -37,6 +39,10 @@ type DbOrder = {
     productId: number;
     quantity: number;
     unitPrice: number;
+    productName?: string | null;
+    productImage?: string | null;
+    selectedSize?: string | null;
+    selectedColor?: string | null;
   }>;
 };
 
@@ -46,6 +52,8 @@ function toOrderDto(order: DbOrder): Order {
     customerName: order.customerName,
     customerPhone: order.customerPhone,
     district: order.district,
+    shippingAddress: order.shippingAddress ?? "",
+    specialInstructionMessage: order.specialInstructionMessage ?? "",
     createdAt: order.createdAt.toISOString(),
     status: order.status as Order["status"],
     paymentStatus: order.paymentStatus as Order["paymentStatus"],
@@ -55,6 +63,10 @@ function toOrderDto(order: DbOrder): Order {
       productId: item.productId,
       quantity: item.quantity,
       unitPrice: item.unitPrice,
+      productName: item.productName ?? undefined,
+      productImage: item.productImage ?? undefined,
+      selectedSize: item.selectedSize ?? undefined,
+      selectedColor: item.selectedColor ?? undefined,
     })),
   };
 }
@@ -105,6 +117,8 @@ export async function PATCH(request: Request, { params }: RouteContext) {
       paymentStatus?: string;
       paymentMethod?: string;
       district?: string;
+      shippingAddress?: string;
+      specialInstructionMessage?: string;
       customerPhone?: string;
       customerName?: string;
       shippingFee?: number;
@@ -115,6 +129,8 @@ export async function PATCH(request: Request, { params }: RouteContext) {
       paymentStatus?: string;
       paymentMethod?: string;
       district?: string;
+      shippingAddress?: string;
+      specialInstructionMessage?: string;
       customerPhone?: string;
       customerName?: string;
       shippingFee?: number;
@@ -178,6 +194,14 @@ export async function PATCH(request: Request, { params }: RouteContext) {
 
     if (payload.customerPhone) {
       data.customerPhone = payload.customerPhone;
+    }
+
+    if (typeof payload.shippingAddress === "string") {
+      data.shippingAddress = payload.shippingAddress;
+    }
+
+    if (typeof payload.specialInstructionMessage === "string") {
+      data.specialInstructionMessage = payload.specialInstructionMessage;
     }
 
     if (payload.customerName) {

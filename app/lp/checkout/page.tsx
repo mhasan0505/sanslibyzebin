@@ -22,8 +22,8 @@ type CheckoutFormData = {
   specialInstructions: string;
 };
 
-function buildStoredDistrict(formData: CheckoutFormData): string {
-  return [formData.city, formData.address, formData.postalCode]
+function buildShippingAddress(formData: CheckoutFormData): string {
+  return [formData.address, formData.city, formData.postalCode]
     .map((value) => value.trim())
     .filter(Boolean)
     .join(" | ");
@@ -107,7 +107,9 @@ function LandingCheckoutContent() {
         id: `lp-order-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         customerName: `${formData.firstName} ${formData.lastName}`.trim(),
         customerPhone: formData.phone.trim(),
-        district: buildStoredDistrict(formData),
+        district: formData.city.trim(),
+        shippingAddress: buildShippingAddress(formData),
+        specialInstructionMessage: formData.specialInstructions.trim(),
         createdAt: new Date().toISOString(),
         status: "Pending",
         paymentStatus: "Pending",
@@ -117,6 +119,10 @@ function LandingCheckoutContent() {
           productId: item.product.id,
           quantity: item.quantity,
           unitPrice: parsePriceSafe(item.product.price, 0),
+          productName: item.product.name,
+          productImage: item.product.images[0] ?? "",
+          selectedSize: item.selectedSize,
+          selectedColor: item.selectedColor,
         })),
       };
 
@@ -370,7 +376,7 @@ function LandingCheckoutContent() {
               </p>
             </div>
           </div>
-        )} 
+        )}
       </div>
     </div>
   );

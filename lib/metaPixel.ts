@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-type CheckoutMethod = "whatsapp" | "email" | "landing";
+type CheckoutMethod = "dashboard" | "landing";
 
 type MetaPixelEvent =
   | "PageView"
@@ -221,7 +221,7 @@ async function trackEventServerSide(
 
 /**
  * Track purchase with both client-side and server-side events
- * Critical for WhatsApp orders where page redirects occur
+ * Useful for reliable conversion tracking even when navigation happens quickly
  */
 export async function trackPurchaseWithServerFallback(params: {
   items: CartItem[];
@@ -253,13 +253,12 @@ export async function trackPurchaseWithServerFallback(params: {
 }
 
 /**
- * Track customer contact/messaging events for WhatsApp
- * This tracks when customers initiate contact via WhatsApp
+ * Track customer contact events.
  */
 export async function trackContact(params: {
   phone?: string;
   email?: string;
-  checkoutMethod: "whatsapp" | "email";
+  checkoutMethod: "dashboard";
 }): Promise<void> {
   const { phone, email, checkoutMethod } = params;
 

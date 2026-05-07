@@ -2,30 +2,17 @@
 
 import { useCart } from "@/context/CartContext";
 import {
-  delayForPixel,
-  trackContact,
   trackInitiateCheckout,
   trackPurchaseWithServerFallback,
 } from "@/lib/metaPixel";
 import { Order } from "@/types/order";
 import { formatCurrency, parsePriceSafe } from "@/utils/helpers";
-import {
-  ArrowLeft,
-  CreditCard,
-  Mail,
-  MessageCircle,
-  ShieldCheck,
-  Truck,
-} from "lucide-react";
+import { ArrowLeft, CreditCard, ShieldCheck, Truck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const SHIPPING_FEE = 120;
-const STORE_WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "8801732935479";
-const STORE_ORDER_EMAIL =
-  process.env.NEXT_PUBLIC_ORDER_EMAIL || "orders@sanslibyzebin.com";
 
 type CheckoutFormData = {
   firstName: string;
@@ -41,7 +28,8 @@ type CheckoutFormData = {
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
   const hasTrackedInitiateCheckout = useRef(false);
-  const [placedVia, setPlacedVia] = useState<"whatsapp" | "email" | null>(null);
+  const [isPlaced, setIsPlaced] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState<CheckoutFormData>({
     firstName: "",
@@ -82,6 +70,11 @@ export default function CheckoutPage() {
       customerName: `${formData.firstName} ${formData.lastName}`.trim(),
       customerPhone: formData.phone.trim(),
       district: formData.city.trim(),
+      shippingAddress: [formData.address, formData.city, formData.postalCode]
+        .map((value) => value.trim())
+        .filter(Boolean)
+        .join(", "),
+      specialInstructionMessage: formData.specialInstructions.trim(),
       createdAt: new Date().toISOString(),
       status: "Pending",
       paymentStatus: "Pending",
@@ -91,6 +84,10 @@ export default function CheckoutPage() {
         productId: item.product.id,
         quantity: item.quantity,
         unitPrice: parsePriceSafe(item.product.price, 0),
+        productName: item.product.name,
+        productImage: item.product.images[0] ?? "",
+        selectedSize: item.selectedSize,
+        selectedColor: item.selectedColor,
       })),
     };
 
@@ -143,117 +140,29 @@ export default function CheckoutPage() {
     return true;
   };
 
-  const buildOrderMessage = () => {
-    const itemLines = cart
-      .map((item, index) => {
-        const unitPrice = parsePriceSafe(item.product.price, 0);
-        const lineTotal = unitPrice * item.quantity;
-
-        return [
-          `${index + 1}. ${item.product.name}`,
-          `   Qty: ${item.quantity}`,
-          `   Unit Price: ${item.product.price}`,
-          `   Line Total: ${formatCurrency(lineTotal)}`,
-          `   Size: ${item.selectedSize || "N/A"}`,
-          `   Color: ${item.selectedColor || "N/A"}`,
-        ].join("\n");
-      })
-      .join("\n\n");
-
-    return [
-      "New Order Request",
-      "",
-      "Customer Details",
-      `Name: ${formData.firstName} ${formData.lastName}`,
-      `Email: ${formData.email}`,
-      `Phone: ${formData.phone}`,
-      `Address: ${formData.address}`,
-      `City: ${formData.city}`,
-      `Postal Code: ${formData.postalCode}`,
-      `Special Instructions: ${formData.specialInstructions || "None"}`,
-      "",
-      "Order Items",
-      itemLines,
-      "",
-      "Order Summary",
-      `Subtotal: ${formatCurrency(cartTotal)}`,
-      `Shipping: ${shipping === 0 ? "Free" : formatCurrency(shipping)}`,
-      `Grand Total: ${formatCurrency(grandTotal)}`,
-      "",
-      "Payment Method: Cash On Delivery",
-    ].join("\n");
-  };
-
-  const handleOrderOnWhatsApp = () => {
-    if (!validateForm()) return;
+  const handlePlaceOrder = () => {
+    if (!validateForm() || isSubmitting) return;
 
     void (async () => {
-      const saved = await persistOrder();
-      if (!saved) return;
+      setIsSubmitting(true);
 
-      // Track purchase with both client-side and server-side events
+      const saved = await persistOrder();
+      if (!saved) {
+        setIsSubmitting(false);
+        return;
+      }
+
       await trackPurchaseWithServerFallback({
         items: cart,
         orderValue: grandTotal,
-        method: "whatsapp",
+        method: "dashboard",
         customerEmail: formData.email,
         customerPhone: formData.phone,
       });
 
-      // Track contact event for WhatsApp messaging
-      await trackContact({
-        phone: formData.phone,
-        email: formData.email,
-        checkoutMethod: "whatsapp",
-      });
-
-      // Wait for pixel to complete before redirecting
-      await delayForPixel(1200);
-
-      const cleanNumber = STORE_WHATSAPP_NUMBER.replace(/\D/g, "");
-      const message = encodeURIComponent(buildOrderMessage());
-      const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
-
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-      setPlacedVia("whatsapp");
+      setIsPlaced(true);
       clearCart();
-    })();
-  };
-
-  const handleOrderByEmail = () => {
-    if (!validateForm()) return;
-
-    void (async () => {
-      const saved = await persistOrder();
-      if (!saved) return;
-
-      // Track purchase with both client-side and server-side events
-      await trackPurchaseWithServerFallback({
-        items: cart,
-        orderValue: grandTotal,
-        method: "email",
-        customerEmail: formData.email,
-        customerPhone: formData.phone,
-      });
-
-      // Track contact event for email ordering
-      await trackContact({
-        phone: formData.phone,
-        email: formData.email,
-        checkoutMethod: "email",
-      });
-
-      // Wait for pixel to complete before redirecting
-      await delayForPixel(1200);
-
-      const subject = encodeURIComponent(
-        `New Order - ${formData.firstName} ${formData.lastName}`,
-      );
-      const body = encodeURIComponent(buildOrderMessage());
-      window.location.href = `mailto:${STORE_ORDER_EMAIL}?subject=${subject}&body=${body}`;
-
-      setPlacedVia("email");
-      clearCart();
+      setIsSubmitting(false);
     })();
   };
 
@@ -276,15 +185,15 @@ export default function CheckoutPage() {
           </p>
         </div>
 
-        {placedVia ? (
+        {isPlaced ? (
           <div className="rounded-2xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)]">
             <ShieldCheck className="w-12 h-12 mx-auto text-[#153532]" />
             <h2 className="mt-4 text-3xl font-heading text-[#153532]">
-              Order Request Sent
+              Order Placed Successfully
             </h2>
             <p className="mt-2 text-[#5d4a30]">
-              Your details were prepared and sent via {placedVia}. Our team will
-              follow up with confirmation shortly.
+              Your order is now in the admin dashboard for processing. Our team
+              will follow up with confirmation shortly.
             </p>
             <Link
               href="/co-ords"
@@ -441,16 +350,11 @@ export default function CheckoutPage() {
               </div>
 
               <button
-                onClick={handleOrderOnWhatsApp}
-                className="mt-6 w-full rounded-md bg-[#1f7f45] py-3 text-sm font-semibold tracking-wide text-white hover:bg-[#1b6f3d] inline-flex items-center justify-center gap-2"
+                onClick={handlePlaceOrder}
+                disabled={isSubmitting}
+                className="mt-6 w-full rounded-md bg-[#153532] py-3 text-sm font-semibold tracking-wide text-white hover:bg-[#0f2725] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                <MessageCircle className="w-4 h-4" /> Order on WhatsApp
-              </button>
-              <button
-                onClick={handleOrderByEmail}
-                className="mt-3 w-full rounded-md bg-[#153532] py-3 text-sm font-semibold tracking-wide text-white hover:bg-[#0f2725] inline-flex items-center justify-center gap-2"
-              >
-                <Mail className="w-4 h-4" /> Order by Email
+                {isSubmitting ? "Placing Order..." : "Place Order"}
               </button>
             </div>
           </div>
