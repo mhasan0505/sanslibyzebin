@@ -598,5 +598,34 @@
     "category": "3 piece set",
     "newArrival": true,
     "inStock": true
+  },
+  {
+    "id": 29,
+    "name": "Beautiful 3 Piece long Kamiz✨ - Black ✨",
+    "fabric": "Soft Silk ✨",
+    "description": "Beautiful Appliqué & Embroidery✨\n\nZardoshi Work ✨\nIndian Maslin Dupatta & Long Kamiz ✨\n\nAvailable size-36 to 56✨",
+    "sizeDescription": "Kamiz length- 50 inch\nPant length- 38 inch",
+    "price": 6500,
+    "overSizePrice": 7000,
+    "size": "36 to 56",
+    "overSize": true,
+    "color": "Black",
+    "image": [
+      "/images/co-ords/black_06/black_06%20(1).jpeg",
+      "/images/co-ords/black_06/black_06%20(2).jpeg",
+      "/images/co-ords/black_06/black_06%20(3).jpeg",
+      "/images/co-ords/black_06/black_06%20(4).jpeg",
+      "/images/co-ords/black_06/black_06%20(5).jpeg",
+      "/images/co-ords/black_06/black_06%20(6).jpeg",
+      "/images/co-ords/black_06/black_06%20(7).jpeg",
+      "/images/co-ords/black_06/black_06%20(8).jpeg"
+    ],
+    "videos": [
+      "/images/co-ords/black_06/black_06%20(1).mp4",
+      "/images/co-ords/black_06/black_06%20(2).mp4"
+    ],
+    "category": "3 piece set",
+    "newArrival": true,
+    "inStock": true
   }
 ]

@@ -2,9 +2,8 @@
 
 import { useCart } from "@/context/CartContext";
 import { trackInitiateCheckout, trackPurchase } from "@/lib/metaPixel";
-import { Order } from "@/types/order";
-import { formatCurrency, parsePriceSafe } from "@/utils/helpers";
-import { ArrowLeft, ShieldCheck, Truck } from "lucide-react";
+import { buildWhatsAppOrderUrl, formatCurrency } from "@/utils/helpers";
+import { ArrowLeft, MessageCircle, ShieldCheck, Truck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -35,6 +34,7 @@ function LandingCheckoutContent() {
   const hasTrackedInitiateCheckout = useRef(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPlaced, setIsPlaced] = useState(false);
+  const [whatsAppUrl, setWhatsAppUrl] = useState("");
   const [error, setError] = useState("");
   const [formData, setFormData] = useState<CheckoutFormData>({
     firstName: "",
@@ -103,60 +103,38 @@ function LandingCheckoutContent() {
     void (async () => {
       setIsSubmitting(true);
 
-      const payload: Order = {
-        id: `lp-order-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      const generatedWhatsAppUrl = buildWhatsAppOrderUrl({
         customerName: `${formData.firstName} ${formData.lastName}`.trim(),
         customerPhone: formData.phone.trim(),
-        district: formData.city.trim(),
-        shippingAddress: buildShippingAddress(formData),
-        specialInstructionMessage: formData.specialInstructions.trim(),
-        createdAt: new Date().toISOString(),
-        status: "Pending",
-        paymentStatus: "Pending",
-        paymentMethod: "Cash on Delivery",
-        shippingFee: shipping,
+        address: formData.address.trim(),
+        city: formData.city.trim(),
+        postalCode: formData.postalCode.trim(),
+        specialInstructions: formData.specialInstructions.trim(),
         items: cart.map((item) => ({
-          productId: item.product.id,
-          quantity: item.quantity,
-          unitPrice: parsePriceSafe(item.product.price, 0),
           productName: item.product.name,
-          productImage: item.product.images[0] ?? "",
+          quantity: item.quantity,
+          price: item.product.price,
           selectedSize: item.selectedSize,
           selectedColor: item.selectedColor,
         })),
-      };
+        subtotal: cartTotal,
+        shipping,
+        grandTotal,
+      });
 
-      try {
-        const response = await fetch("/api/orders", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+      trackPurchase({
+        items: cart,
+        orderValue: grandTotal,
+        method: "whatsapp",
+      });
 
-        const data = (await response.json()) as {
-          ok?: boolean;
-          message?: string;
-        };
+      setWhatsAppUrl(generatedWhatsAppUrl);
+      setIsPlaced(true);
+      clearCart();
+      setIsSubmitting(false);
 
-        if (!response.ok || !data.ok) {
-          throw new Error(data.message || "Could not save order");
-        }
-
-        trackPurchase({
-          items: cart,
-          orderValue: grandTotal,
-          method: "landing",
-        });
-
-        setIsPlaced(true);
-        clearCart();
-      } catch {
-        setError(
-          "We could not save the landing page order right now. Please try again in a moment.",
-        );
-      } finally {
-        setIsSubmitting(false);
-      }
+      // Open WhatsApp directly with formatted order data
+      window.open(generatedWhatsAppUrl, "_blank");
     })();
   };
 
@@ -175,34 +153,36 @@ function LandingCheckoutContent() {
             Landing Checkout
           </p>
           <h1 className="mt-3 text-4xl font-heading text-[#153532] md:text-5xl">
-            Confirm the order and send it straight to admin
+            Confirm your order and send it to WhatsApp
           </h1>
           <p className="mt-3 text-[#5d4a30]">
-            This checkout stores the order in your dashboard so the admin team
-            can process it directly from the database.
+            Complete your details below to send your order directly to our team via WhatsApp.
           </p>
         </div>
 
         {isPlaced ? (
-          <div className="rounded-3xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)]">
-            <ShieldCheck className="mx-auto h-12 w-12 text-[#153532]" />
+          <div className="rounded-3xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)] max-w-2xl mx-auto">
+            <div className="w-16 h-16 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center mx-auto mb-4">
+              <MessageCircle className="w-8 h-8" />
+            </div>
             <h2 className="mt-4 text-3xl font-heading text-[#153532]">
-              Order Saved To Admin
+              Order Ready for WhatsApp
             </h2>
-            <p className="mt-2 text-[#5d4a30]">
-              The landing page order is now in the admin panel and ready for
-              follow-up.
+            <p className="mt-3 text-[#5d4a30] leading-relaxed">
+              Your landing page order details have been prepared for WhatsApp! If WhatsApp did not open automatically, click below to complete sending your order.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                href="/admin"
-                className="inline-flex rounded-md bg-[#153532] px-6 py-3 text-sm font-semibold tracking-wide text-white hover:bg-[#0f2725]"
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href={whatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] px-8 py-3.5 text-base font-bold tracking-wide text-white transition-transform hover:scale-105 shadow-md"
               >
-                Open Admin Orders
-              </Link>
+                <MessageCircle className="w-5 h-5 fill-current" /> Complete Order on WhatsApp
+              </a>
               <Link
                 href={backHref}
-                className="inline-flex rounded-md border border-[#153532] px-6 py-3 text-sm font-semibold tracking-wide text-[#153532] hover:bg-[#153532] hover:text-white"
+                className="inline-flex rounded-full border border-[#153532] px-6 py-3.5 text-sm font-semibold tracking-wide text-[#153532] hover:bg-[#153532] hover:text-white transition-colors"
               >
                 Return to Offer
               </Link>

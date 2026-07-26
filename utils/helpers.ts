@@ -163,3 +163,65 @@ export function slugify(value: string): string {
 export function createProductSlug(name: string, id: number): string {
   return `${slugify(name)}-${id}`;
 }
+
+export interface WhatsAppOrderData {
+  customerName: string;
+  customerPhone: string;
+  address: string;
+  city: string;
+  postalCode?: string;
+  specialInstructions?: string;
+  items: Array<{
+    productName: string;
+    quantity: number;
+    price: string;
+    selectedSize?: string;
+    selectedColor?: string;
+  }>;
+  subtotal: number;
+  shipping: number;
+  grandTotal: number;
+  whatsappNumber?: string;
+}
+
+export function buildWhatsAppOrderUrl(data: WhatsAppOrderData): string {
+  const whatsappNumber = data.whatsappNumber || "8801732935479";
+  let message = `🛍️ *NEW ORDER - SANSLI BY ZEBIN*\n\n`;
+  message += `👤 *Customer Details:*\n`;
+  message += `• Name: ${data.customerName}\n`;
+  message += `• Phone: ${data.customerPhone}\n`;
+  message += `• Address: ${data.address}, ${data.city}${
+    data.postalCode ? `, ${data.postalCode}` : ""
+  }\n\n`;
+
+  message += `📦 *Order Items:*\n`;
+  data.items.forEach((item, index) => {
+    let itemLine = `${index + 1}. *${item.productName}* (Qty: ${item.quantity})`;
+    const specs = [
+      item.selectedSize ? `Size: ${item.selectedSize}` : "",
+      item.selectedColor ? `Color: ${item.selectedColor}` : "",
+    ]
+      .filter(Boolean)
+      .join(", ");
+    if (specs) itemLine += ` [${specs}]`;
+    itemLine += ` - ${item.price}`;
+    message += `${itemLine}\n`;
+  });
+
+  message += `\n💰 *Payment & Summary:*\n`;
+  message += `• Subtotal: ৳ ${data.subtotal.toLocaleString("en-US")}\n`;
+  message += `• Delivery: ${
+    data.shipping === 0 ? "Free" : `৳ ${data.shipping.toLocaleString("en-US")}`
+  }\n`;
+  message += `• *Total Amount: ৳ ${data.grandTotal.toLocaleString("en-US")}*\n`;
+  message += `• Payment Method: Cash on Delivery\n`;
+
+  if (data.specialInstructions?.trim()) {
+    message += `\n📝 *Special Instructions:*\n${data.specialInstructions.trim()}\n`;
+  }
+
+  message += `\nThank you! ✨`;
+
+  const cleanPhone = whatsappNumber.replace(/[^0-9]/g, "");
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+}

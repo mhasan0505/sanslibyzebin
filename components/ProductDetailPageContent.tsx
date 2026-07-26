@@ -169,7 +169,10 @@ export default function ProductDetailPageContent({
 
         <div className="grid grid-cols-1 gap-12 mb-16 md:grid-cols-2">
           <div>
-            <ProductGallery images={product.images || []} />
+            <ProductGallery
+              images={product.images || []}
+              videos={product.videos || []}
+            />
           </div>
 
           <div id="purchase-panel">

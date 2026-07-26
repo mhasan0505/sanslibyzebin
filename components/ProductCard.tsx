@@ -40,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             src={product.images[0]}
             alt={product.name}
             fill
-            className={`object-contain p-2 transition-opacity duration-500 ease-in-out ${
+            className={`object-cover object-top transition-opacity duration-500 ease-in-out ${
               product.images[1] ? "group-hover:opacity-0" : ""
             }`}
           />
@@ -50,7 +50,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               src={product.images[1]}
               alt={`${product.name} – alternate view`}
               fill
-              className="object-contain p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
+              className="object-cover object-top opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
             />
           )}
 

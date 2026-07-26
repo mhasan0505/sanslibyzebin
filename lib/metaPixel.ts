@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-type CheckoutMethod = "dashboard" | "landing";
+type CheckoutMethod = "dashboard" | "landing" | "whatsapp";
 
 type MetaPixelEvent =
   | "PageView"

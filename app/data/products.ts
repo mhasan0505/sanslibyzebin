@@ -14,6 +14,8 @@ type RawProduct = {
   size: string;
   color: string;
   image: string[];
+  video?: string[];
+  videos?: string[];
   inStock: boolean;
   newArrival?: boolean;
   category?: string;
@@ -112,7 +114,15 @@ export const products: Product[] = (rawProducts as RawProduct[]).map(
           : item.category || "Co-Ords",
     description: item.description,
     sizeDescription: item.sizeDescription,
-    images: item.image,
+    images: (item.image || []).filter(
+      (url) => !/\.(mp4|webm|mov|mkv)($|\?)/i.test(url),
+    ),
+    videos: [
+      ...(item.videos || item.video || []),
+      ...(item.image || []).filter((url) =>
+        /\.(mp4|webm|mov|mkv)($|\?)/i.test(url),
+      ),
+    ],
     sizes: defaultSizes,
     colors: [item.color],
     material: item.fabric,

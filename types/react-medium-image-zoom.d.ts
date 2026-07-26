@@ -3,6 +3,8 @@ declare module "react-medium-image-zoom" {
 
   export interface ZoomProps {
     children: ReactNode;
+    classWrap?: string;
+    classDialog?: string;
     zoomMargin?: number;
     overlayBgColorEnd?: string;
     overlayBgColorStart?: string;

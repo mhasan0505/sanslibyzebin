@@ -5,9 +5,17 @@ import {
   trackInitiateCheckout,
   trackPurchaseWithServerFallback,
 } from "@/lib/metaPixel";
-import { Order } from "@/types/order";
-import { formatCurrency, parsePriceSafe } from "@/utils/helpers";
-import { ArrowLeft, CreditCard, ShieldCheck, Truck } from "lucide-react";
+import {
+  buildWhatsAppOrderUrl,
+  formatCurrency,
+} from "@/utils/helpers";
+import {
+  ArrowLeft,
+  CreditCard,
+  MessageCircle,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -30,6 +38,7 @@ export default function CheckoutPage() {
   const hasTrackedInitiateCheckout = useRef(false);
   const [isPlaced, setIsPlaced] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [whatsAppUrl, setWhatsAppUrl] = useState("");
   const [error, setError] = useState("");
   const [formData, setFormData] = useState<CheckoutFormData>({
     firstName: "",
@@ -64,58 +73,6 @@ export default function CheckoutPage() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const persistOrder = async (): Promise<boolean> => {
-    const payload: Order = {
-      id: `order-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      customerName: `${formData.firstName} ${formData.lastName}`.trim(),
-      customerPhone: formData.phone.trim(),
-      district: formData.city.trim(),
-      shippingAddress: [formData.address, formData.city, formData.postalCode]
-        .map((value) => value.trim())
-        .filter(Boolean)
-        .join(", "),
-      specialInstructionMessage: formData.specialInstructions.trim(),
-      createdAt: new Date().toISOString(),
-      status: "Pending",
-      paymentStatus: "Pending",
-      paymentMethod: "Cash on Delivery",
-      shippingFee: shipping,
-      items: cart.map((item) => ({
-        productId: item.product.id,
-        quantity: item.quantity,
-        unitPrice: parsePriceSafe(item.product.price, 0),
-        productName: item.product.name,
-        productImage: item.product.images[0] ?? "",
-        selectedSize: item.selectedSize,
-        selectedColor: item.selectedColor,
-      })),
-    };
-
-    try {
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = (await response.json()) as {
-        ok?: boolean;
-        message?: string;
-      };
-
-      if (!response.ok || !data.ok) {
-        throw new Error(data.message || "Could not save order");
-      }
-
-      return true;
-    } catch {
-      setError(
-        "We could not save your order right now. Please try again in a moment.",
-      );
-      return false;
-    }
-  };
-
   const validateForm = () => {
     const requiredFields: Array<keyof CheckoutFormData> = [
       "firstName",
@@ -146,23 +103,40 @@ export default function CheckoutPage() {
     void (async () => {
       setIsSubmitting(true);
 
-      const saved = await persistOrder();
-      if (!saved) {
-        setIsSubmitting(false);
-        return;
-      }
+      const generatedWhatsAppUrl = buildWhatsAppOrderUrl({
+        customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+        customerPhone: formData.phone.trim(),
+        address: formData.address.trim(),
+        city: formData.city.trim(),
+        postalCode: formData.postalCode.trim(),
+        specialInstructions: formData.specialInstructions.trim(),
+        items: cart.map((item) => ({
+          productName: item.product.name,
+          quantity: item.quantity,
+          price: item.product.price,
+          selectedSize: item.selectedSize,
+          selectedColor: item.selectedColor,
+        })),
+        subtotal: cartTotal,
+        shipping,
+        grandTotal,
+      });
 
       await trackPurchaseWithServerFallback({
         items: cart,
         orderValue: grandTotal,
-        method: "dashboard",
+        method: "whatsapp",
         customerEmail: formData.email,
         customerPhone: formData.phone,
       });
 
+      setWhatsAppUrl(generatedWhatsAppUrl);
       setIsPlaced(true);
       clearCart();
       setIsSubmitting(false);
+
+      // Automatically open WhatsApp with pre-filled order data
+      window.open(generatedWhatsAppUrl, "_blank");
     })();
   };
 
@@ -181,26 +155,37 @@ export default function CheckoutPage() {
             Checkout
           </h1>
           <p className="mt-3 text-[#5d4a30]">
-            Complete your order details to place your casual luxury picks.
+            Complete your details to send your order directly to our WhatsApp.
           </p>
         </div>
 
         {isPlaced ? (
-          <div className="rounded-2xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)]">
-            <ShieldCheck className="w-12 h-12 mx-auto text-[#153532]" />
-            <h2 className="mt-4 text-3xl font-heading text-[#153532]">
-              Order Placed Successfully
+          <div className="rounded-2xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)] max-w-2xl mx-auto">
+            <div className="w-16 h-16 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center mx-auto mb-4">
+              <MessageCircle className="w-8 h-8" />
+            </div>
+            <h2 className="text-3xl font-heading text-[#153532]">
+              Order Sent to WhatsApp
             </h2>
-            <p className="mt-2 text-[#5d4a30]">
-              Your order is now in the admin dashboard for processing. Our team
-              will follow up with confirmation shortly.
+            <p className="mt-3 text-[#5d4a30] leading-relaxed">
+              Your order details have been formatted for WhatsApp! If WhatsApp did not open automatically, please click the button below to send your order directly to our team.
             </p>
-            <Link
-              href="/co-ords"
-              className="mt-6 inline-flex rounded-md bg-[#153532] px-6 py-3 text-sm font-semibold tracking-wide text-white hover:bg-[#0f2725]"
-            >
-              Back to Co-Ords
-            </Link>
+            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={whatsAppUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] px-8 py-3.5 text-base font-bold tracking-wide text-white transition-transform hover:scale-105 shadow-md"
+              >
+                <MessageCircle className="w-5 h-5 fill-current" /> Open WhatsApp Order
+              </a>
+              <Link
+                href="/co-ords"
+                className="inline-flex items-center justify-center rounded-full border border-[#153532] px-6 py-3.5 text-sm font-semibold tracking-wide text-[#153532] hover:bg-[#153532] hover:text-white transition-colors"
+              >
+                Back to Co-Ords
+              </Link>
+            </div>
           </div>
         ) : cart.length === 0 ? (
           <div className="rounded-2xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)]">

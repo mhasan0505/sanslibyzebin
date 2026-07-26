@@ -27,6 +27,7 @@ export interface Product {
   description: string;
   sizeDescription?: string;
   images: string[];
+  videos?: string[];
   sizes?: string[];
   colors?: string[];
   material?: string;
