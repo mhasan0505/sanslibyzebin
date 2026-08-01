@@ -5,12 +5,16 @@ import {
   trackInitiateCheckout,
   trackPurchaseWithServerFallback,
 } from "@/lib/metaPixel";
+import { saveOrderToDatabase } from "@/lib/orders";
+import { Order } from "@/types/order";
 import {
   buildWhatsAppOrderUrl,
   formatCurrency,
+  parsePriceSafe,
 } from "@/utils/helpers";
 import {
   ArrowLeft,
+  CheckCircle2,
   CreditCard,
   MessageCircle,
   ShieldCheck,
@@ -97,11 +101,52 @@ export default function CheckoutPage() {
     return true;
   };
 
+  const [placedOrderSummary, setPlacedOrderSummary] = useState<{
+    id: string;
+    customerName: string;
+    phone: string;
+    address: string;
+    city: string;
+    grandTotal: number;
+  } | null>(null);
+
   const handlePlaceOrder = () => {
     if (!validateForm() || isSubmitting) return;
 
     void (async () => {
       setIsSubmitting(true);
+
+      const orderId = `ORD-${Date.now()}-${Math.random()
+        .toString(36)
+        .substring(2, 7)
+        .toUpperCase()}`;
+
+      const orderPayload: Order = {
+        id: orderId,
+        customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+        customerPhone: formData.phone.trim(),
+        district: formData.city.trim(),
+        shippingAddress: `${formData.address.trim()}${formData.postalCode ? `, ${formData.postalCode.trim()}` : ""}`,
+        specialInstructionMessage: formData.specialInstructions.trim() || undefined,
+        status: "Pending",
+        paymentStatus: "Pending",
+        paymentMethod: "Cash on Delivery",
+        shippingFee: shipping,
+        createdAt: new Date().toISOString(),
+        items: cart.map((item) => ({
+          productId: item.product.id,
+          quantity: item.quantity,
+          unitPrice:
+            item.product.priceValue ?? parsePriceSafe(item.product.price),
+          productName: item.product.name,
+          productImage: item.product.images?.[0] || undefined,
+          selectedSize: item.selectedSize || undefined,
+          selectedColor: item.selectedColor || undefined,
+        })),
+      };
+
+      // Save order directly to Neon database for Admin Dashboard
+      await saveOrderToDatabase(orderPayload);
 
       const generatedWhatsAppUrl = buildWhatsAppOrderUrl({
         customerName: `${formData.firstName} ${formData.lastName}`.trim(),
@@ -125,18 +170,23 @@ export default function CheckoutPage() {
       await trackPurchaseWithServerFallback({
         items: cart,
         orderValue: grandTotal,
-        method: "whatsapp",
+        method: "dashboard",
         customerEmail: formData.email,
         customerPhone: formData.phone,
       });
 
+      setPlacedOrderSummary({
+        id: orderId,
+        customerName: `${formData.firstName} ${formData.lastName}`.trim(),
+        phone: formData.phone.trim(),
+        address: formData.address.trim(),
+        city: formData.city.trim(),
+        grandTotal,
+      });
       setWhatsAppUrl(generatedWhatsAppUrl);
       setIsPlaced(true);
       clearCart();
       setIsSubmitting(false);
-
-      // Automatically open WhatsApp with pre-filled order data
-      window.open(generatedWhatsAppUrl, "_blank");
     })();
   };
 
@@ -155,36 +205,73 @@ export default function CheckoutPage() {
             Checkout
           </h1>
           <p className="mt-3 text-[#5d4a30]">
-            Complete your details to send your order directly to our WhatsApp.
+            Complete your details below to place your order directly into our system.
           </p>
         </div>
 
         {isPlaced ? (
-          <div className="rounded-2xl border border-[#e6d3b8] bg-white p-10 text-center shadow-[0_12px_34px_rgba(44,36,22,0.08)] max-w-2xl mx-auto">
-            <div className="w-16 h-16 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center mx-auto mb-4">
-              <MessageCircle className="w-8 h-8" />
+          <div className="rounded-3xl border border-[#e6d3b8] bg-white p-8 md:p-12 shadow-[0_12px_34px_rgba(44,36,22,0.08)] max-w-2xl mx-auto text-center">
+            <div className="w-20 h-20 rounded-full bg-[#153532]/10 text-[#153532] flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-10 h-10 text-[#153532]" />
             </div>
-            <h2 className="text-3xl font-heading text-[#153532]">
-              Order Sent to WhatsApp
+
+            <span className="inline-block px-3.5 py-1 bg-[#f4eadf] text-[#5d4a30] text-xs font-semibold uppercase tracking-wider rounded-full mb-3">
+              Order Confirmed
+            </span>
+
+            <h2 className="text-3xl md:text-4xl font-heading text-[#153532]">
+              Thank You For Your Order!
             </h2>
-            <p className="mt-3 text-[#5d4a30] leading-relaxed">
-              Your order details have been formatted for WhatsApp! If WhatsApp did not open automatically, please click the button below to send your order directly to our team.
+            <p className="mt-3 text-[#5d4a30] leading-relaxed max-w-lg mx-auto">
+              Your order has been placed successfully and sent directly to our Admin Dashboard for processing. Our team will verify and prepare your items.
             </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+
+            {placedOrderSummary && (
+              <div className="mt-8 rounded-xl border border-[#e6d3b8] bg-[#faf6f0] p-6 text-left space-y-3 text-sm">
+                <div className="flex justify-between items-center border-b border-[#e6d3b8] pb-3">
+                  <span className="font-semibold text-[#153532]">Order Reference:</span>
+                  <span className="font-mono text-xs font-bold bg-[#153532] text-white px-2.5 py-1 rounded">
+                    {placedOrderSummary.id}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-[#5d4a30]">
+                  <span>Customer Name:</span>
+                  <span className="font-medium text-[#153532]">{placedOrderSummary.customerName}</span>
+                </div>
+                <div className="flex justify-between items-center text-[#5d4a30]">
+                  <span>Mobile:</span>
+                  <span className="font-medium text-[#153532]">{placedOrderSummary.phone}</span>
+                </div>
+                <div className="flex justify-between items-center text-[#5d4a30]">
+                  <span>Delivery Address:</span>
+                  <span className="font-medium text-[#153532]">{placedOrderSummary.address}, {placedOrderSummary.city}</span>
+                </div>
+                <div className="flex justify-between items-center text-[#5d4a30]">
+                  <span>Payment Method:</span>
+                  <span className="font-medium text-[#153532]">Cash on Delivery</span>
+                </div>
+                <div className="flex justify-between items-center text-[#5d4a30] border-t border-[#e6d3b8] pt-3 text-base font-semibold">
+                  <span className="text-[#153532]">Total Amount:</span>
+                  <span className="text-[#153532]">{formatCurrency(placedOrderSummary.grandTotal)}</span>
+                </div>
+              </div>
+            )}
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/collections"
+                className="inline-flex items-center justify-center rounded-full bg-[#153532] hover:bg-[#0f2725] px-8 py-3.5 text-sm font-semibold tracking-wide text-white transition-colors shadow-md"
+              >
+                Continue Shopping
+              </Link>
               <a
                 href={whatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] px-8 py-3.5 text-base font-bold tracking-wide text-white transition-transform hover:scale-105 shadow-md"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#25D366] text-[#153532] hover:bg-[#25D366] hover:text-white px-6 py-3.5 text-sm font-semibold tracking-wide transition-colors"
               >
-                <MessageCircle className="w-5 h-5 fill-current" /> Open WhatsApp Order
+                <MessageCircle className="w-4 h-4 fill-current text-[#25D366]" /> Chat on WhatsApp
               </a>
-              <Link
-                href="/co-ords"
-                className="inline-flex items-center justify-center rounded-full border border-[#153532] px-6 py-3.5 text-sm font-semibold tracking-wide text-[#153532] hover:bg-[#153532] hover:text-white transition-colors"
-              >
-                Back to Co-Ords
-              </Link>
             </div>
           </div>
         ) : cart.length === 0 ? (

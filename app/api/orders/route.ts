@@ -1,3 +1,4 @@
+import { orders as mockOrders } from "@/app/data/orders";
 import { prisma } from "@/lib/prisma";
 import { Order } from "@/types/order";
 import { NextResponse } from "next/server";
@@ -84,11 +85,12 @@ export async function GET() {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Database query error:", message);
 
     return NextResponse.json(
       {
         ok: false,
-        message: "Failed to fetch orders",
+        message: "Failed to fetch orders from database",
         error: message,
       },
       { status: 500 },

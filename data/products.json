@@ -451,13 +451,12 @@
     "overSize": true,
     "color": "Eerie Black",
     "image": [
-      "/images/co-ords/Eerie_Black/eerie_black%20(1).jpeg",
-      "/images/co-ords/Eerie_Black/eerie_black%20(2).jpeg",
-      "/images/co-ords/Eerie_Black/eerie_black%20(3).jpeg",
-
-      "/images/co-ords/Eerie_Black/eerie_black%20(4).jpeg",
-      "/images/co-ords/Eerie_Black/eerie_black%20(5).jpeg",
-      "/images/co-ords/Eerie_Black/eerie_black%20(6).jpeg"
+      "/images/co-ords/eerie_black/eerie_black%20(1).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(2).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(3).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(4).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(5).jpeg",
+      "/images/co-ords/eerie_black/eerie_black%20(6).jpeg"
     ],
     "category": "3 piece set",
     "newArrival": true,
@@ -601,7 +600,7 @@
   },
   {
     "id": 29,
-    "name": "Beautiful 3 Piece long Kamiz✨ - Black ✨",
+    "name": "Beautiful 3 Piece Long Kamiz✨ - Black ✨",
     "fabric": "Soft Silk ✨",
     "description": "Beautiful Appliqué & Embroidery✨\n\nZardoshi Work ✨\nIndian Maslin Dupatta & Long Kamiz ✨\n\nAvailable size-36 to 56✨",
     "sizeDescription": "Kamiz length- 50 inch\nPant length- 38 inch",
@@ -609,20 +608,19 @@
     "overSizePrice": 7000,
     "size": "36 to 56",
     "overSize": true,
-    "color": "Black",
+    "color": "Red",
     "image": [
-      "/images/co-ords/black_06/black_06%20(1).jpeg",
-      "/images/co-ords/black_06/black_06%20(2).jpeg",
-      "/images/co-ords/black_06/black_06%20(3).jpeg",
-      "/images/co-ords/black_06/black_06%20(4).jpeg",
-      "/images/co-ords/black_06/black_06%20(5).jpeg",
-      "/images/co-ords/black_06/black_06%20(6).jpeg",
-      "/images/co-ords/black_06/black_06%20(7).jpeg",
-      "/images/co-ords/black_06/black_06%20(8).jpeg"
-    ],
-    "videos": [
-      "/images/co-ords/black_06/black_06%20(1).mp4",
-      "/images/co-ords/black_06/black_06%20(2).mp4"
+      "/images/co-ords/black_06/black_06%20(1).jpg",
+      "/images/co-ords/black_06/black_06%20(2).jpg",
+      "/images/co-ords/black_06/black_06%20(3).jpg",
+      "/images/co-ords/black_06/black_06%20(4).jpg",
+      "/images/co-ords/black_06/black_06%20(5).jpg",
+      "/images/co-ords/black_06/black_06%2ed_02%20(1).jpg",
+      "/images/co-ords/red_02/red_02%20(2).jpg",
+      "/images/co-ords/red_02/red_02%20(3).jpg",
+      "/images/co-ords/red_02/red_02%20(4).jpg",
+      "/images/co-ords/red_02/red_02%20(5).jpg",
+      "/images/co-ords/red_02/red_02%20(6).jpg"
     ],
     "category": "3 piece set",
     "newArrival": true,
